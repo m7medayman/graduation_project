@@ -12,8 +12,8 @@ class Block :
         self.positiony1 =self.gapPosition+self.gapWidth
         self.firstWidth=self.gapPosition
         self.secoendWidth = self.screenWidth-self.positiony1
-        self.rect1=pygame.Rect(0,0, self.firstWidth,self.size )
-        self.rect2=pygame.Rect( self.positiony1,0, self.secoendWidth,self.size)
+        self.rect1=pygame.Rect(0,self.positionY, self.firstWidth,self.size )
+        self.rect2=pygame.Rect( self.positiony1,self.positionY, self.secoendWidth,self.size)
 
     def increaseSpeed(self):
         self.speed+=10
