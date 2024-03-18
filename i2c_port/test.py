@@ -1,9 +1,10 @@
 from pyqtgraph.Qt import QtGui
-
+from filter import KFilter ,MeanFilter,HighPassFilter,LowPassFilter,ChangeFilter
 from PyQt5.QtWidgets import QApplication
 import pyqtgraph as pg
 import numpy as np
 import os
+import time
 import mpu6050
 from numpy import linspace
 from filterpy.kalman import KalmanFilter
@@ -15,29 +16,8 @@ from live_plot import LivePlot
 if os.environ.get('DISPLAY', '') == '':
     print('no display found. Using :0.0')
     os.environ.__setitem__('DISPLAY', ':0.0')
-
-
-# Create a Kalman filter object for a one-dimensional system
-kf = KalmanFilter(dim_x=1, dim_z=1)
-
-# Define the state transition matrix (assume constant acceleration)
-dt = 1.0  # Time step
-kf.F = np.array([[1]])
-
-# Define the measurement function
-kf.H = np.array([[1]])
-
-# Define the measurement noise covariance matrix
-kf.R = 1  # Measurement noise (adjust as needed)
-
-# Define the process noise covariance matrix
-q = 0.1  # Process noise (adjust as needed)
-kf.Q = np.array([[q]])
-
-# Initialize the state estimate and covariance matrix
-kf.x = np.array([0])  # Initial acceleration estimate
-kf.P *= 1000  # Initial covariance matrix
-
+position=0
+speed=0
 
 # Initialize the MPU6050 sensor
 mpu6050 = mpu6050.mpu6050(0x68, bus=0)
@@ -45,48 +25,48 @@ app = QApplication([])
 # Create a window for the plot
 
 win = pg.GraphicsLayoutWidget(title="Signal from serial port",size=(700,500))
-livePlot=LivePlot(win=win,row=0,col=0)
-# # Create a plot in the window
-# p = win.addPlot(title="Realtime plot",row=0,col=0)
-# p2 = win.addPlot(title="Realtime plot",row=2,col=0)
-# # Create a curve for the plot
-# curve = p.plot()
-# curve1=p2.plot()
-# windowWidth = 800
-# Xm = linspace(0, 0, windowWidth)
-# sXm=linspace(0, 0, windowWidth)
-# t=linspace(0, windowWidth, windowWidth)
-# Function to read sensor data
+livePlot1=LivePlot(win=win,row=0,col=0)
+livePlot2=LivePlot(win=win,row=0,col=1)
+livePlot3=LivePlot(win=win,row=1,col=0)
+
 def read_sensor_data():
     accelerometer_data = list(mpu6050.get_accel_data().values())
-    return accelerometer_data
-def stimate(v):
-    global kf
-    kf.predict()
-    # Update with the new measurement
-    kf.update(v)
-    return kf.x[0]
-
+    return accelerometer_data[0]
 # Function to update the plot
+
+kFilter=KFilter(value=read_sensor_data())
+meanFilter=MeanFilter(value=read_sensor_data(),sampleNumber=3)
+# calculate the error position 
+
+for i in range(0,5):
+    value = read_sensor_data()
+    kValue=kFilter.stimate(value)
+    meanValue=meanFilter.getTheMean(kValue)
+    time.sleep(0.001)
+emean=kValue
+print(meanValue)
+time=10*0.001
+lpf=LowPassFilter(initial_value=emean,alpha=0.7)
+cFilter=ChangeFilter(value=emean,sampleNumber=5,tsv=0.1)
+# print(ePosition)
 def update():
-    # global curve, Xm,sXm,t
-    # Xm[:-1] = Xm[1:]
-    # sXm[:-1] = sXm[1:]
-    value = read_sensor_data()[0]
-    # svalue= stimate(value)
-    # Xm[-1] = float(value)
-    # sXm[-1]=float(svalue)
-    # print(f"vlaue:{value}")
-    # print(f"sValue: {svalue}")
-    # print("*****************")
-    # curve.setData(t,Xm )
-    # curve1.setData(sXm)
-    livePlot.update(value)
+    global speed , position,ePosition,time,emean,cFilter
+    value = read_sensor_data()
+    kValue=kFilter.stimate(value)
+    meanValue=lpf.apply(kValue)-emean
+    cfValue=cFilter.getValueCheck(meanValue)
+    print(f"Lpf:{meanValue}")
+    print(f"cf:{cfValue}")
+    speed+=kValue*time
+    position+=speed*time+0.5*kValue*time-ePosition
+    livePlot1.update(value)
+    livePlot2.update(kValue)
+    livePlot3.update(cfValue)
 
 # Timer for updating the plot
 timer = pg.QtCore.QTimer()
 timer.timeout.connect(update)
-timer.start(50)  # Update plot every 50 milliseconds
+timer.start(10)  # Update plot every 50 milliseconds
 
 # Show the plot window
 win.showMaximized()
