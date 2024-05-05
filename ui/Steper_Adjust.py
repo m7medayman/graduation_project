@@ -10,39 +10,106 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QVBoxLayout, QFrame, QStackedWidget,QWidget
-
+import serial
+import threading
 
 class StepperAdjustFrame(QWidget):
+
+    def __init__(self):
+        super().__init__()
+        self.ser = serial.Serial('/dev/ttyACM0', 9600) 
     def setup(self, frame)->None:
         frame.setObjectName("steperAdjust")
         frame.resize(801, 600)
         self.centralwidget = QtWidgets.QWidget(frame)
         self.centralwidget.setObjectName("centralwidget")
-        self.UpButton = QtWidgets.QPushButton(self.centralwidget)
-        self.UpButton.setGeometry(QtCore.QRect(120, 250, 271, 121))
+        
+        #start button
+        self.StartButton = QtWidgets.QPushButton(self.centralwidget)
+        self.StartButton.setGeometry(QtCore.QRect(120, 10, 271, 121))
         font = QtGui.QFont()
         font.setPointSize(20)
-        self.UpButton.setFont(font)
-        self.UpButton.setObjectName("UpButton")
-        self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_2.setGeometry(QtCore.QRect(440, 250, 251, 121))
+        self.StartButton.setFont(font)
+        self.StartButton.setObjectName("start Button")
+        self.StartButton.setText("start stepper ")
+        # stop button 
+        self.StopButton = QtWidgets.QPushButton(self.centralwidget)
+        self.StopButton.setGeometry(QtCore.QRect(440, 10, 251, 121))
+        font = QtGui.QFont()
+        font.setPointSize(18)
+        self.StopButton.setFont(font)
+        self.StopButton.setObjectName("stop button")
+        self.StopButton.setText("stop stepper")
+
+
+        #right up button
+        self.RightUpButton = QtWidgets.QPushButton(self.centralwidget)
+        self.RightUpButton.setGeometry(QtCore.QRect(120, 150, 271, 121))
         font = QtGui.QFont()
         font.setPointSize(20)
-        self.pushButton_2.setFont(font)
-        self.pushButton_2.setObjectName("pushButton_2")
+        self.RightUpButton.setFont(font)
+        self.RightUpButton.setObjectName("Right UpButton")
+        self.RightUpButton.setText("up right stepper ")
+        # right down button 
+        self.RightDownButton = QtWidgets.QPushButton(self.centralwidget)
+        self.RightDownButton.setGeometry(QtCore.QRect(440, 150, 251, 121))
+        font = QtGui.QFont()
+        font.setPointSize(18)
+        self.RightDownButton.setFont(font)
+        self.RightDownButton.setObjectName("pushButton_2")
+        self.RightDownButton.setText("left Down stepper")
+
+        #left up button
+        self.LeftUpButton = QtWidgets.QPushButton(self.centralwidget)
+        self.LeftUpButton.setGeometry(QtCore.QRect(120, 300, 271, 121))
+        font = QtGui.QFont()
+        font.setPointSize(20)
+        self.LeftUpButton.setFont(font)
+        self.LeftUpButton.setObjectName("UpButton")
+        self.LeftUpButton.setText("up left stepper ")
+        # left down button 
+        self.LeftDownButton = QtWidgets.QPushButton(self.centralwidget)
+        self.LeftDownButton.setGeometry(QtCore.QRect(440, 300, 251, 121))
+        font = QtGui.QFont()
+        font.setPointSize(18)
+        self.LeftDownButton.setFont(font)
+        self.LeftDownButton.setObjectName("pushButton_2")
+        self.LeftDownButton.setText("left Down stepper")
+        ###############
         frame.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(frame)
         self.statusbar.setObjectName("statusbar")
         frame.setStatusBar(self.statusbar)
-
-        self.retranslateUi(frame)
+        #connect buttons to functions
+        self.LeftUpButton.pressed.connect(self.pressUpButtonLeft)
+        self.LeftDownButton.pressed.connect(self.pressDownButtonLeft)
+                # Start serial receive thread
+        self.receive_thread = threading.Thread(target=self.serial_receive)
+        self.receive_thread.daemon = True
+        self.receive_thread.start()
         QtCore.QMetaObject.connectSlotsByName(frame)
 
     def retranslateUi(self, steperAdjust):
         _translate = QtCore.QCoreApplication.translate
         steperAdjust.setWindowTitle(_translate("steperAdjust", "stepper adjust "))
-        self.UpButton.setText(_translate("steperAdjust", "up"))
-        self.pushButton_2.setText(_translate("steperAdjust", "down"))
+        self.LeftUpButton.setText(_translate("steperAdjust", "up"))
+        self.LeftDownButton.setText(_translate("steperAdjust", "down"))
+    
+
+    def pressUpButtonLeft(self):
+        self.ser.write(b's2up\n')
+        print("up button")
+
+    def pressDownButtonLeft(self):
+        self.ser.write(b's2down\n')
+        print("down button")
+
+    def serial_receive(self):
+        while True:
+            if self.ser.in_waiting:
+                received_data = self.ser.readline().decode().strip()
+                print("Received:"+received_data)
+
 
 
 if __name__ == "__main__":
@@ -53,3 +120,4 @@ if __name__ == "__main__":
     ui.setupUi(steperAdjust)
     steperAdjust.show()
     sys.exit(app.exec_())
+    

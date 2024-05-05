@@ -18,7 +18,7 @@ from filterpy.kalman import KalmanFilter
 import sys
 sys.path.append('/home/pi/body balance seeker/plot_module/live_plot_module ')
 from live_plot import LivePlot
-sys.path.append('/home/pi/body balance seeker/i2c_port')
+sys.path.append('/home/pi/body balance seeker/gpio_module')
 from filter import KFilter ,MeanFilter,HighPassFilter,LowPassFilter,ChangeFilter
 
 
@@ -30,12 +30,19 @@ from Home_Frame import Ui_MainWindow
 
 
 class SensoryView(object):
+    progressBarValue=0;
+    def upDateProgressBar(self):
+         
+         self.progressBarValue+=0.5
+         if self.progressBarValue>=100:
+              self.progressBarValue=0
+        
     def setupUi(self, Frame):
         Frame.setObjectName("Frame")
         Frame.resize(800, 455)
         self.progressBar = QtWidgets.QProgressBar(Frame)
         self.progressBar.setGeometry(QtCore.QRect(20, 390, 600, 40))
-        self.progressBar.setProperty("value", 24)
+        self.progressBar.setProperty("value", self.progressBarValue)
         self.progressBar.setObjectName("progressBar")
         self.pushButton = QtWidgets.QPushButton(Frame)
         self.pushButton.setGeometry(QtCore.QRect(710, 390, 71, 41))
@@ -116,6 +123,8 @@ class SensoryView(object):
             self.livePlot1.update(value)
             self.livePlot2.update(kValue)
             self.livePlot3.update(cfValue)
+            self.upDateProgressBar()
+            self.progressBar.setValue(self.progressBarValue)
 
 if __name__ == "__main__":
     import sys
