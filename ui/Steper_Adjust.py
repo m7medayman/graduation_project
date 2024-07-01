@@ -83,7 +83,7 @@ class StepperAdjustFrame(QWidget):
         #connect buttons to functions
         self.LeftUpButton.pressed.connect(self.pressUpButtonLeft)
         self.LeftDownButton.pressed.connect(self.pressDownButtonLeft)
-                # Start serial receive thread
+        # Start serial receive thread
         self.receive_thread = threading.Thread(target=self.serial_receive)
         self.receive_thread.daemon = True
         self.receive_thread.start()

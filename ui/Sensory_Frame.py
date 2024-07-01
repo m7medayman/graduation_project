@@ -15,11 +15,7 @@ import time as ti
 import mpu6050
 from numpy import linspace
 from filterpy.kalman import KalmanFilter
-import sys
-sys.path.append('/home/pi/body balance seeker/plot_module/live_plot_module ')
-from live_plot import LivePlot
-sys.path.append('/home/pi/body balance seeker/gpio_module')
-from filter import KFilter ,MeanFilter,HighPassFilter,LowPassFilter,ChangeFilter
+
 
 
 

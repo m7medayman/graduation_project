@@ -1,4 +1,4 @@
-from modle import TimeLine , XAxsis
+from .modle import TimeLine , XAxsis
 import pyqtgraph as pg
 
 class LivePlot:
@@ -6,7 +6,7 @@ class LivePlot:
         self.timeLine=TimeLine(intervalLength=50)
         self.xAxsis=XAxsis(intervalLength=50)
         self.win=win
-        self.p=self.win.addPlot(title="Realtime plot",row=row,col=col)
+        self.p=self.win.addPlot(row=row,col=col)
         self.curve = self.p.plot()
     def update(self,currentValue):
         t=self.timeLine.run()

@@ -2,10 +2,10 @@ import sys
 from PyQt5 import QtWidgets
 import os
 # import the classes
-from Home_Frame import Ui_MainWindow
 from Exercise_Frame import Exercise_Frame
-from Sensory_Frame import SensoryView
-from Steper_Adjust import StepperAdjustFrame
+from control_motor_gui import MotorControlUi
+from HomeFramePro import Ui_mainFramePro
+from sensoryFramePro import Ui_sensoryFramePro
 
 if os.environ.get('DISPLAY', '') == '':
     print('no display found. Using :0.0')
@@ -15,7 +15,7 @@ class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.ui = Ui_MainWindow()
+        self.ui = Ui_mainFramePro()
         self.ui.setupUi(self)
 
         # Connect buttons to their respective functions
@@ -26,7 +26,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def open_sensory_page(self):
         self.sensory_page = QtWidgets.QMainWindow()
-        self.ui = SensoryView()  # Assuming Sensory_Frame is defined in sensory_page.py
+        self.ui = Ui_sensoryFramePro()
         self.ui.setupUi(self.sensory_page)
         self.sensory_page.showFullScreen()
 
@@ -37,8 +37,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.exercise_page.show()
     def open_option_page(self):
         self.exercise_page = QtWidgets.QMainWindow()
-        self.ui = StepperAdjustFrame()  # Assuming Exercise_Frame is defined in exercise_page.py
-        self.ui.setup(self.exercise_page)
+        self.ui = MotorControlUi()  # Assuming Exercise_Frame is defined in exercise_page.py
+        self.ui.setupUi(self.exercise_page)
         self.exercise_page.showFullScreen()
 
 
