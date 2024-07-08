@@ -24,6 +24,7 @@ screen = pygame.display.set_mode((width,height),flags)
 pygame.display.set_caption("Y game")
 BLACK = (0, 0, 0)
 blockBuilder=BlockBuilder( screen= screen )
+blockBuilder
 player=PlayerModule(screen=screen,pygme=pygame)
 clock = pygame.time.Clock()
 running = True

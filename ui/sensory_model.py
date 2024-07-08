@@ -8,40 +8,42 @@ class SensoryModel:
         self._sensorYFilter=KFilter(value=self.vlxModule.getSensorY())
         self._sensorXValue=self._sensorXFilter.stimate(self.vlxModule.getSensorX())
         self._sensorYValue=self._sensorYFilter.stimate(self.vlxModule.getSensorY())
-        
+
     
     def setCenter(self):
         meanSensorX=0
         meanSensorY=0
-        for i in range(0,20):
-            valueX = self.vlxModule.getSensorX
-            valueY = self.vlxModule.getSensorY
-            self._sensorXValue=self._sensorXFilter.stimate(valueX)
-            self._sensorYValue=self._sensorYFilter.stimate(valueY)
-            meanSensorX+= self._sensorXValue
-            meanSensorY+=self._sensorYValue
+        for i in range(0,50):
+            valueX = self.getSensorXAbs()
+            valueY = self.getSensorYAbs()
+            meanSensorX+= valueX
+            meanSensorY+=valueY
             ti.sleep(0.001)
-        meanSensorX=meanSensorX/20
-        meanSensorY=meanSensorY/20
+        meanSensorX=meanSensorX/50
+        meanSensorY=meanSensorY/50
         self.vlxModule.setCenterX(meanSensorX)
         self.vlxModule.setCenterY(meanSensorY)
+        
 
     def getSensorX(self):
+        
         self._sensorXValue=self._sensorXFilter.stimate(self.vlxModule.getSensorX())
-        print(f"get x:{self._sensorXValue}")
-        return round(self._sensorXValue,0)
+        return int(self._sensorXValue)
     
     def getSensorY(self):
         self._sensorYValue=self._sensorYFilter.stimate(self.vlxModule.getSensorY())
-        return round(self._sensorYValue,0)
+        return int(self._sensorYValue)
+    def getSensorXAbs(self):
+        value=self.vlxModule.getSensorOneAbs()
+        return value
+    def getSensorYAbs(self):
+        value=self.vlxModule.getSensorTwoAbs()
+        return value
 
     def _updateSensors(self):
-        self._sensorXValue=self._sensorXFilter.stimate(self.vlxModule.getSensorX())
-        self._sensorYValue=self._sensorYFilter.stimate(self.vlxModule.getSensorY())
-
+        valueX=self.vlxModule.getSensorX()
+        valueY=self.vlxModule.getSensorY()
     def updateLoop(self):
         self._updateSensors()
-
-
 
         

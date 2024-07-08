@@ -1,21 +1,22 @@
 import pygame
 import sys
-sys.path.append('/home/pi/body balance seeker/game_module/shared_component')
-from sensor_input.module import SensorInput
+
+from game_module.game_controller import PlayerYController
+
 class PlayerModule:
     def __init__(self,screen:pygame.Surface,pygme:pygame) -> None:
         self.color=(0,0,255)
         self.size=40
         self.screen=screen
-        self.sensorInput= SensorInput()
         self.screenWidth=screen.get_width()
         self.startPosition=screen.get_height()*3/4
         self.PositionX= screen.get_width()/2
         self.PositionY=self.startPosition
+        self.playerPostionController=PlayerYController()
         self.pygame=pygame
         self.rect=pygame.Rect(self.PositionX, self.PositionY, self.size,self.size)
     def getPlayerPosition(self):
-        value=self.sensorInput.getVlaue()
+        value=self.playerPostionController.getPosstionX()
         playerPosition=self.screenWidth*value
         return playerPosition
 

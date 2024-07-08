@@ -57,7 +57,7 @@ class HighPassFilter:
         self.filtered_value = self.alpha * (self.filtered_value + value)
         return value - self.filtered_value
         
-class LowPassFilter:
+class   LowPassFilter:
     def __init__(self, alpha, initial_value=0):
         self.alpha = alpha
         self.filtered_value = initial_value

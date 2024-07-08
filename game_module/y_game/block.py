@@ -4,11 +4,11 @@ class Block :
         self.screen=screen
         self.positionX =initPosition
         self.gapPosition= gapPosition
-        self.gapHeight=200
+        self.gapHeight=250
         self.size=14
         self.screenHeight =screen.get_height()
         self.color=(255,0,0)
-        self.speed=200
+        self.speed=100
         self.positiony1 = self.gapPosition
         self.positiony2 =self.gapPosition+self.gapHeight
         self.rect1=pygame.Rect(self.positionX, self.positiony2, self.size,self.screenHeight-self.positiony2 )
