@@ -31,7 +31,7 @@ class SensoryModel:
         return sensorX
     
     def getSensorY(self):
-        sensorY=self._sensorXFilter.stimate(self.vlxModule.getSensorY())
+        sensorY=self._sensorYFilter.stimate(self.vlxModule.getSensorY())
         return sensorY
 
     def _updateSensors(self):
