@@ -46,6 +46,7 @@ class TestModel():
         print(f'precentx : {xSensorPrecent}')
         print(f'precenty : {ySensorPrecent}')
         totalPrecent=(xSensorPrecent+ySensorPrecent)/2
+        totalPrecent=int(totalPrecent*100)
         self.precentList.append(totalPrecent)
         self._currentTime=0
         self.isEnd=True
