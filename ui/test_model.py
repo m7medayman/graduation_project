@@ -81,6 +81,7 @@ class TestModel():
         return text
     def caluateTheResult(self,maxValue,minValue):
         percent=(self.maxSway-(maxValue-minValue))/self.maxSway
+        print(f"percent : {percent}")
         return percent
     def getResultPrecent(self,values):
         result = 0
@@ -92,5 +93,6 @@ class TestModel():
             min_value = min(chunk)
             v=self.caluateTheResult(maxValue=max_value,minValue=min_value)
             result +=v  # Example operation (replace with your actual operation)
+        print(f"result and count :{result/count}")
         return result/count
 
