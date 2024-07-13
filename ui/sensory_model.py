@@ -14,8 +14,8 @@ class SensoryModel:
         meanSensorY=0
         self.vlxModule.reset()
         for i in range(0,50):
-            valueX = self.vlxModule.getSensorX()
-            valueY = self.vlxModule.getSensorY()
+            valueX = self.vlxModule.getSensorXAbs()
+            valueY = self.vlxModule.getSensorYAbs()
             meanSensorX+=valueX
             meanSensorY+=valueY
             self.sensorXValue=self._sensorXFilter.stimate(valueX)

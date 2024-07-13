@@ -41,11 +41,11 @@ class PlayerYController:
         self._sensorYValue=self.getMeanFilterY()
         return int(self._sensorYValue)
     def getSensorXAbs(self):
-        v=self.vlxModule.getSensorOneAbs()
+        v=self.vlxModule.getSensorXAbs()
         value=self.LPFXabs.apply(v)
         return value
     def getSensorYAbs(self):
-        v=self.vlxModule.getSensorTwoAbs()
+        v=self.vlxModule.getSensorYAbs()
         value=self.LPFYabs.apply(v)
         return value
 

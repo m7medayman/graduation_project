@@ -31,10 +31,10 @@ class VlxModule():
     def getSensorY(self):
         sensorRead = self.getSecondSensorValue()
         return round(sensorRead-self._centerY, 3)
-    def getSensorOneAbs(self):
+    def getSensorXAbs(self):
         sensorRead = self.getFirstSensorValue()
         return sensorRead
-    def getSensorTwoAbs(self):
+    def getSensorYAbs(self):
         sensorRead = self.getSecondSensorValue()
         return sensorRead
     def setCenterX(self,newCenterX:float):
