@@ -24,7 +24,7 @@ class Ui_sensoryFramePro(object):
         self.name=Name
         self.hipHeight=hipHeight
     def setupUi(self, sensoryFrame):
-        self.model=SensoryModel()
+        self.sensorsModel=SensoryModel()
         sensoryFrame.setObjectName("sensoryFrame")
         sensoryFrame.resize(800, 470)
         sensoryFrame.setStyleSheet("background-color: #141332;")
@@ -281,7 +281,7 @@ class Ui_sensoryFramePro(object):
         #creat chart plot 
         frameLayoutChart= QVBoxLayout()
         self.frame_chart.setLayout(frameLayoutChart)
-        self.bar_chart_widget = BarChartWidget([10 ,20 ,50 ,10 ,20,90])
+        self.bar_chart_widget = BarChartWidget([])
         frameLayoutChart.addWidget(self.bar_chart_widget)
 
 
@@ -301,12 +301,13 @@ class Ui_sensoryFramePro(object):
 #################### time loop setup
         self.timer = pg.QtCore.QTimer()
         self.timer.timeout.connect(self.update)
+        self.sensorsModel.reset()
         self.timer.start(0.01) 
 ################### end of time loop setup
 ################## time update loop
 
     def startTest(self):
-        self.model.setCenter()
+        self.sensorsModel.setCenter()
         self.testModel.startButtonFunction()
         print('test run')
 
@@ -325,9 +326,9 @@ class Ui_sensoryFramePro(object):
         self.bar_chart_widget.update_chart(new_percentages=self.testModel.getPrecentList())    
     def update(self):
         
-        self.model.updateLoop()
-        sensorX=self.model.getSensorX()
-        sensorY=self.model.getSensorY()
+        self.sensorsModel.updateLoop()
+        sensorX=self.sensorsModel.getSensorX()
+        sensorY=self.sensorsModel.getSensorY()
         self.selectTestFrame(self.testModel.getCurrentTestNumber())
         self.testModel.updateLoop(xRead=sensorX,yRead=sensorY)
         self.progressBar.setProperty("value", self.testModel.getTestTimepercent())

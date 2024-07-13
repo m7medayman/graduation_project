@@ -12,6 +12,7 @@ class SensoryModel:
     def setCenter(self):
         meanSensorX=0
         meanSensorY=0
+        self.vlxModule.reset()
         for i in range(0,50):
             valueX = self.vlxModule.getSensorX()
             valueY = self.vlxModule.getSensorY()
@@ -39,6 +40,8 @@ class SensoryModel:
 
     def updateLoop(self):
         self._updateSensors()
+    def reset(self):
+        self.vlxModule.reset()
 
 
 

@@ -62,7 +62,7 @@ class VlxModule():
     def getFirstSensorValue(self) -> float:
         try:
             value = self.dataX.get()
-            print(self.dataX.qsize())
+
             if isinstance(value, float):
                 return float(f"{value:.3f}")
             else:

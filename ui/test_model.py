@@ -82,7 +82,7 @@ class TestModel():
         percent=(self.maxSway-(maxValue-minValue))/self.maxSway
         return percent
     def getResultPrecent(self,values):
-        results = 0
+        result = 0
         count=0
         for i in range(0, len(values), 10):
             chunk = values[i:i + 10]
@@ -91,5 +91,5 @@ class TestModel():
             min_value = min(chunk)
             v=self.caluateTheResult(maxValue=max_value,minValue=min_value)
             result +=v  # Example operation (replace with your actual operation)
-        return results/count
+        return result/count
 
