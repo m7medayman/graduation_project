@@ -12,6 +12,7 @@ class TestModel():
         self._xData=[]
         self._yData=[]
         self.precentList=[]
+        self.isEnd=False
         self.hipHeight=hipHight*100 # to make it mm 
         self.tanAngle12=0.22169466
         self.maxSway=self.hipHeight*self.tanAngle12
@@ -45,6 +46,7 @@ class TestModel():
         totalPrecent=(xSensorPrecent+ySensorPrecent)/2
         self.precentList.append(totalPrecent)
         self._currentTime=0
+        self.isEnd=True
     def updateLoop(self,xRead,yRead):
         if(self._isrunning and self._currentTime<self._period):
             self.attachDataToPerson(xRead=xRead,yRead=yRead)

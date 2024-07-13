@@ -336,6 +336,9 @@ class Ui_sensoryFramePro(object):
         self.livePlotY.update(sensorY)
         self.dotPlot.setPosition(x=sensorX,y=sensorY)
         self.dotPlot.update()
+        if(self.testModel.isEnd):
+            self.updateChart()
+            self.testModel.isEnd=False
         
 ################# end of update loop 
 
