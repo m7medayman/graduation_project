@@ -1,7 +1,7 @@
 import time as ti
 from gpio_module.filter import KFilter ,MeanFilter,HighPassFilter,LowPassFilter,ChangeFilter
 from gpio_module.vlx1_tof_sensor.vlx_module import VlxModule
-class PlayerXController:
+class PlayerYController:
     def __init__(self)->None:
         self.vlxModule=VlxModule()
         self._sensorXFilter=KFilter(value=self.vlxModule.getSensorX())
@@ -74,11 +74,25 @@ class PlayerXController:
         value=self.getFilterdY()
         fv= self.meanFilterY.getTheMean(value)
         return fv
+    
+
     def getPosstionX(self):
+        ## that mean 0 will out  0.5 
+        # the range will be between -100 to 100 becase the max is 200
+        miniRange=self.maxPlayerPostionX//2
         xSensor=self.vlxModule.getSensorX()
-        return xSensor/self.maxPlayerPostionX
+        value=xSensor+miniRange
+        value=value/self.maxPlayerPostionX
+        
+        if(value>1):
+            return 1
+        if value<0:
+            return 0
+        return value        
     def reset(self):
         self.vlxModule.reset()
+    def close(self):
+        self.vlxModule.kill()
 
 
         

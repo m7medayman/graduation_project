@@ -1,6 +1,6 @@
 import pygame
 
-from ui_component.text import MyText
+from game_module.ui_component.text import MyText
 class Button :
    
     def __init__(self,screen:pygame.Surface,pygame:pygame,text,posX,posY,do_func) -> None:

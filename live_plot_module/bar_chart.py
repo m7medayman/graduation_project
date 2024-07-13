@@ -33,13 +33,10 @@ class BarChartWidget(QWidget):
         ax.set_facecolor('black')
 
         # Create the bar chart
-        categories = [f"Item {i+1}" for i in range(len(self.percentages))]
+        categories = [f"C {i+1}" for i in range(len(self.percentages))]
         bars = ax.bar(categories, self.percentages, color='gray')
 
         # Customize chart elements
-        ax.set_title("Percentages Bar Chart", color='gray')
-        ax.set_xlabel("Items", color='gray')
-        ax.set_ylabel("Percentage", color='gray')
         ax.set_ylim(0, 100)
 
         # Customize tick labels

@@ -20,13 +20,16 @@ from test_model import TestModel
 from person import Person
 
 class Ui_sensoryFramePro(object):
+    def __init__(self,hipHeight,Name):
+        self.name=Name
+        self.hipHeight=hipHeight
     def setupUi(self, sensoryFrame):
         self.model=SensoryModel()
         sensoryFrame.setObjectName("sensoryFrame")
         sensoryFrame.resize(800, 470)
         sensoryFrame.setStyleSheet("background-color: #141332;")
         self.backButton = QtWidgets.QPushButton(sensoryFrame)
-        self.backButton.setGeometry(QtCore.QRect(30, 390, 151, 31))
+        self.backButton.setGeometry(QtCore.QRect(30, 440, 151, 31))
         self.backButton.setStyleSheet("QPushButton {\n"
 "    background-color: #6359E9; /* Change this to your desired background color */\n"
 "    color: white; /* Change this to your desired text color */\n"
@@ -127,14 +130,14 @@ class Ui_sensoryFramePro(object):
 "    /* Add other text properties as needed */\n"
 "}")
         self.label_17.setObjectName("label_17")
-        self.frame_t5 = QtWidgets.QFrame(self.frame)
-        self.frame_t5.setGeometry(QtCore.QRect(310, 260, 51, 20))
-        self.frame_t5.setStyleSheet("background-color:#64CFF6;\n"
+        self.frame_t6 = QtWidgets.QFrame(self.frame)
+        self.frame_t6.setGeometry(QtCore.QRect(310, 260, 51, 20))
+        self.frame_t6.setStyleSheet("background-color:#64CFF6;\n"
 "border-radius: 30px;")
-        self.frame_t5.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame_t5.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame_t5.setObjectName("frame_31")
-        self.label_18 = QtWidgets.QLabel(self.frame_t5)
+        self.frame_t6.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_t6.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_t6.setObjectName("frame_31")
+        self.label_18 = QtWidgets.QLabel(self.frame_t6)
         self.label_18.setGeometry(QtCore.QRect(20, 0, 31, 16))
         self.label_18.setStyleSheet("QLabel {\n"
 "    color: #ffffff; /* Change this to your desired text color */\n"
@@ -144,14 +147,14 @@ class Ui_sensoryFramePro(object):
 "    /* Add other text properties as needed */\n"
 "}")
         self.label_18.setObjectName("label_18")
-        self.frame_t6 = QtWidgets.QFrame(self.frame)
-        self.frame_t6.setGeometry(QtCore.QRect(250, 260, 51, 20))
-        self.frame_t6.setStyleSheet("background-color:#64CFF6;\n"
+        self.frame_t5 = QtWidgets.QFrame(self.frame)
+        self.frame_t5.setGeometry(QtCore.QRect(250, 260, 51, 20))
+        self.frame_t5.setStyleSheet("background-color:#64CFF6;\n"
 "border-radius: 30px;")
-        self.frame_t6.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame_t6.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame_t6.setObjectName("frame_32")
-        self.label_19 = QtWidgets.QLabel(self.frame_t6)
+        self.frame_t5.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_t5.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_t5.setObjectName("frame_32")
+        self.label_19 = QtWidgets.QLabel(self.frame_t5)
         self.label_19.setGeometry(QtCore.QRect(20, 0, 31, 16))
         self.label_19.setStyleSheet("QLabel {\n"
 "    color: #ffffff; /* Change this to your desired text color */\n"
@@ -190,7 +193,7 @@ class Ui_sensoryFramePro(object):
         self.frame_dotPlot.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_dotPlot.setObjectName("frame_28")
         self.pushButton = QtWidgets.QPushButton(sensoryFrame)
-        self.pushButton.setGeometry(QtCore.QRect(620, 392, 151, 31))
+        self.pushButton.setGeometry(QtCore.QRect(620, 440, 151, 31))
         self.pushButton.setStyleSheet("QPushButton {\n"
 "    background-color: #6359E9; /* Change this to your desired background color */\n"
 "    color: white; /* Change this to your desired text color */\n"
@@ -243,7 +246,7 @@ class Ui_sensoryFramePro(object):
         self.label.setTextFormat(QtCore.Qt.PlainText)
         self.label.setObjectName("label")
         self.label_cond = QtWidgets.QLabel(sensoryFrame)
-        self.label_cond.setGeometry(QtCore.QRect(240, 380, 371, 41))
+        self.label_cond.setGeometry(QtCore.QRect(200, 380, 550, 41))
         font = QtGui.QFont()
         font.setPointSize(11)
         font.setBold(True)
@@ -288,8 +291,8 @@ class Ui_sensoryFramePro(object):
         self.teckperiod=5 #5 ms 
         self.retranslateUi(sensoryFrame)
         QtCore.QMetaObject.connectSlotsByName(sensoryFrame)
-        self.person=Person(name="mohamed")
-        self.testModel=TestModel(period=300,person=self.person) #4000 * 5 ms=20s
+        self.person=Person(name=self.name)
+        self.testModel=TestModel(period=300,person=self.person,hipHight=self.hipHeight) #4000 * 5 ms=20s
 #################### end of gui setup
 #################### buttons function connect section  
         self.backButton.clicked.connect(self.go_to_home)
@@ -317,7 +320,8 @@ class Ui_sensoryFramePro(object):
             else:
                 self.updateFrameColor(frame=frame,hexColor="#8C89B6")
             
-        
+    def updateChart(self):
+        self.bar_chart_widget.update_chart(new_percentages=self.testModel.getPrecentList())    
     def update(self):
         
         self.model.updateLoop()
@@ -326,11 +330,13 @@ class Ui_sensoryFramePro(object):
         self.selectTestFrame(self.testModel.getCurrentTestNumber())
         self.testModel.updateLoop(xRead=sensorX,yRead=sensorY)
         self.progressBar.setProperty("value", self.testModel.getTestTimepercent())
+        self.label_cond.setText(self.testModel.getCondText())
         self.pushButton.setText(self.testModel.getSatausText())
         self.livePlotX.update(sensorX)
         self.livePlotY.update(sensorY)
         self.dotPlot.setPosition(x=sensorX,y=sensorY)
         self.dotPlot.update()
+        
 ################# end of update loop 
 
 

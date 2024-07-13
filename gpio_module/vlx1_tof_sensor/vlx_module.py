@@ -1,11 +1,14 @@
+import inspect
 import queue
 import threading
 import time
 from .vlx_gpio_configration import VlxGpioInput
 from gpio_module.filter import KFilter ,MeanFilter,HighPassFilter,LowPassFilter,ChangeFilter
+import ctypes
 
 class VlxModule():
     def __init__(self)->None:
+
         self.dataX = queue.Queue()
         self.dataY = queue.Queue()
         self._centerX=0
@@ -14,7 +17,12 @@ class VlxModule():
         self.LPFY=LowPassFilter(alpha=0.5)
         self.meanFilterX=MeanFilter(value=0,sampleNumber=5)
         self.meanFilterY=MeanFilter(value=0,sampleNumber=5)
+        self.stop_event = threading.Event()
+        
+        
         self.start_reading()
+   
+        
     
     def getSensorX(self):
         sensorRead = self.getFirstSensorValue()
@@ -41,13 +49,14 @@ class VlxModule():
     
     def _read_loop(self):
         self.vlxSensor= VlxGpioInput()
-        while self.running:
+        while self.running and not self.stop_event.is_set():
             new_valueX = self.vlxSensor.getFirstSensorGpio()
             newValueY = self.vlxSensor.getSecondSensorFromGpio()
             newXFilterd=self._getFilterXsensor(new_valueX)
             newYFilterd=self._getFilterYsensor(newValueY)
             self.dataX.put(newXFilterd)
             self.dataY.put(newYFilterd)
+            # print("running")
             # time.sleep(0.0001)  # Adjust the delay as needed
 
     def getFirstSensorValue(self) -> float:
@@ -83,6 +92,9 @@ class VlxModule():
     def reset(self):
         self.dataX=queue.Queue()
         self.dataY=queue.Queue()
+
+    def kill(self):
+        self.stop_event.set()
     
 
 class Data():
