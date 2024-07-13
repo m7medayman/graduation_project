@@ -42,6 +42,8 @@ class SensoryModel:
         self._updateSensors()
     def reset(self):
         self.vlxModule.reset()
+    def kill(self):
+        self.vlxModule.kill()
 
 
 

@@ -364,6 +364,7 @@ class Ui_sensoryFramePro(object):
 
     def go_to_home(self):
         self.timer.stop()
+        self.sensorsModel.kill()
         # Close the current window (Exercise_Frame) and show the main window (Home_Frame)
         main_window = self.backButton.window()  # Access the parent window
         while main_window is not None and not isinstance(main_window, QtWidgets.QMainWindow):
