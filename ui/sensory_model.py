@@ -13,8 +13,8 @@ class SensoryModel:
         meanSensorX=0
         meanSensorY=0
         for i in range(0,50):
-            valueX = self.vlxModule.getSensorX
-            valueY = self.vlxModule.getSensorY
+            valueX = self.vlxModule.getSensorX()
+            valueY = self.vlxModule.getSensorY()
             meanSensorX+=valueX
             meanSensorY+=valueY
             self.sensorXValue=self.kFilter.stimate(valueX)
