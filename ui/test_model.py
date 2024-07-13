@@ -13,9 +13,10 @@ class TestModel():
         self._yData=[]
         self.precentList=[]
         self.isEnd=False
-        self.hipHeight=hipHight*100 # to make it mm 
+        self.hipHeight=int(hipHight)*100 # to make it mm 
         self.tanAngle12=0.22169466
         self.maxSway=self.hipHeight*self.tanAngle12
+        print("init test model")
         self.condtions=['COND1: Normal Vision , Fixed Support','COND2: Absent Vision , Fixed Support','COND3: Sway Referenced Vision , Fixed Support',
                         'COND4: Normal Vision , Sway Referenced Support','COND5: Absent Vision , Sway Referenced Support','COND6: Sway Referenced Vision , Sway Referenced Support']
     def _runTest(self):

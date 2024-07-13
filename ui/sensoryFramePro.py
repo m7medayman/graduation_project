@@ -308,6 +308,7 @@ class Ui_sensoryFramePro(object):
     def startTest(self):
         self.model.setCenter()
         self.testModel.startButtonFunction()
+        print('test run')
 
 
     def updateFrameColor(self,frame,hexColor):
