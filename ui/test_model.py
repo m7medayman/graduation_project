@@ -24,6 +24,7 @@ class TestModel():
         self._xData=[]
         self._yData=[]
     def getPrecentList(self):
+        print("get percent List ###########################################################################")
         return self.precentList
     def _endWithOutSavign(self):
         self._isrunning=False
