@@ -378,11 +378,4 @@ class Ui_sensoryFramePro(object):
             main_window.close()
           # Close the current window
         
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    sensoryFrame = QtWidgets.QFrame()
-    ui = Ui_sensoryFramePro()
-    ui.setupUi(sensoryFrame)
-    sensoryFrame.show()
-    sys.exit(app.exec_())
+
