@@ -22,7 +22,7 @@ class TestModel():
         self.condtions=['COND1: Normal Vision , Fixed Support','COND2: Absent Vision , Fixed Support','COND3: Sway Referenced Vision , Fixed Support',
                         'COND4: Normal Vision , Sway Referenced Support','COND5: Absent Vision , Sway Referenced Support','COND6: Sway Referenced Vision , Sway Referenced Support']
     def autoButtonFunction(self):
-        self.ser.write(f"auto,{self.speed},{self.acceleration}".encode('utf-8'))
+        self.ser.write(f"auto,{600},{500}".encode('utf-8'))
     def _runTest(self):
         self._isrunning=True
         self._xData=[]
