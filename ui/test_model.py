@@ -21,10 +21,15 @@ class TestModel():
         print("init test model")
         self.condtions=['COND1: Normal Vision , Fixed Support','COND2: Absent Vision , Fixed Support','COND3: Sway Referenced Vision , Fixed Support',
                         'COND4: Normal Vision , Sway Referenced Support','COND5: Absent Vision , Sway Referenced Support','COND6: Sway Referenced Vision , Sway Referenced Support']
+    def autoButtonFunction(self):
+        self.ser.write(f"auto,{self.speed},{self.acceleration}".encode('utf-8'))
     def _runTest(self):
         self._isrunning=True
         self._xData=[]
         self._yData=[]
+        if(self._currentTestNumber>2): #to make the auto work after 
+            self.autoButtonFunction()
+            
     def getPrecentList(self):
         print("get percent List ###########################################################################")
         return self.perecentList
@@ -41,7 +46,8 @@ class TestModel():
                 self.exportData()
     def _endTest(self):
         self._isrunning=False
-        
+        if(self._currentTestNumber>2):
+            self.ser.write(f"st,{self.speed},{self.acceleration}".encode('utf-8'))
         self.person.addTest(xData=self._xData,yData=self._yData)
         xSensorPerecent=self.getResultPrecent(values=self._xData)
         ySensorPerecent=self.getResultPrecent(values=self._yData)

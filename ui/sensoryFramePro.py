@@ -378,4 +378,3 @@ class Ui_sensoryFramePro(object):
             main_window.close()
           # Close the current window
         
-
