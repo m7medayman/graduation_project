@@ -9,7 +9,7 @@ class TestModel():
         self._period=period
         self._isrunning=False
         self._currentTestNumber=0
-        self._testsNumber=5
+        self._testsNumber=6
         self._currentTime=0
         self._xData=[]
         self._yData=[]
