@@ -47,7 +47,7 @@ class TestModel():
     def _endTest(self):
         self._isrunning=False
         if(self._currentTestNumber>2):
-            self.ser.write(f"st,{self.speed},{self.acceleration}".encode('utf-8'))
+            self.ser.write(f"st,{600},{500}".encode('utf-8'))
         self.person.addTest(xData=self._xData,yData=self._yData)
         xSensorPerecent=self.getResultPrecent(values=self._xData)
         ySensorPerecent=self.getResultPrecent(values=self._yData)
