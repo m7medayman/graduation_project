@@ -29,22 +29,22 @@ class Ui_mainFramePro(object):
         font.setPointSize(20)
         self.SensorTestButton.setFont(font)
         self.SensorTestButton.setStyleSheet("QPushButton {\n"
-                                      "    background-color: #6359E9; /* Change this to your desired background color */\n"
-                                      "    color: white; /* Change this to your desired text color */\n"
-                                      "    border: 2px; /* Change this to your desired border color and thickness */\n"
-                                      "    border-radius: 15px; /* Adjust the radius to your desired value for rounded corners */\n"
-                                      "    padding: 5px 10px; /* Adjust the padding to your desired value */\n"
-                                      "}\n"
-                                      "\n"
-                                      "QPushButton:hover {\n"
-                                      "    background-color: #0ACDE4; /* Change this to your desired background color on hover */\n"
-                                      "    border: 2px solid #0ACDE4; /* Change this to your desired border color on hover */\n"
-                                      "}\n"
-                                      "\n"
-                                      "QPushButton:pressed {\n"
-                                      "    background-color: #0AADE2; /* Change this to your desired background color when pressed */\n"
-                                      "    border: 2px solid #0AADE2; /* Change this to your desired border color when pressed */\n"
-                                      "}")
+                                            "    background-color: #6359E9; /* Change this to your desired background color */\n"
+                                            "    color: white; /* Change this to your desired text color */\n"
+                                            "    border: 2px; /* Change this to your desired border color and thickness */\n"
+                                            "    border-radius: 15px; /* Adjust the radius to your desired value for rounded corners */\n"
+                                            "    padding: 5px 10px; /* Adjust the padding to your desired value */\n"
+                                            "}\n"
+                                            "\n"
+                                            "QPushButton:hover {\n"
+                                            "    background-color: #0ACDE4; /* Change this to your desired background color on hover */\n"
+                                            "    border: 2px solid #0ACDE4; /* Change this to your desired border color on hover */\n"
+                                            "}\n"
+                                            "\n"
+                                            "QPushButton:pressed {\n"
+                                            "    background-color: #0AADE2; /* Change this to your desired background color when pressed */\n"
+                                            "    border: 2px solid #0AADE2; /* Change this to your desired border color when pressed */\n"
+                                            "}")
         self.SensorTestButton.setObjectName("SensorTestButton")
         self.pushButton_2 = QtWidgets.QPushButton(mainFrame)
         self.pushButton_2.setGeometry(QtCore.QRect(90, 140, 631, 51))
@@ -75,22 +75,22 @@ class Ui_mainFramePro(object):
         font.setPointSize(20)
         self.ExerciseButton.setFont(font)
         self.ExerciseButton.setStyleSheet("QPushButton {\n"
-                                        "    background-color: #6359E9; /* Change this to your desired background color */\n"
-                                        "    color: white; /* Change this to your desired text color */\n"
-                                        "    border: 2px; /* Change this to your desired border color and thickness */\n"
-                                        "    border-radius: 15px; /* Adjust the radius to your desired value for rounded corners */\n"
-                                        "    padding: 5px 10px; /* Adjust the padding to your desired value */\n"
-                                        "}\n"
-                                        "\n"
-                                        "QPushButton:hover {\n"
-                                        "    background-color: #0ACDE4; /* Change this to your desired background color on hover */\n"
-                                        "    border: 2px solid #0ACDE4; /* Change this to your desired border color on hover */\n"
-                                        "}\n"
-                                        "\n"
-                                        "QPushButton:pressed {\n"
-                                        "    background-color: #0AADE2; /* Change this to your desired background color when pressed */\n"
-                                        "    border: 2px solid #0AADE2; /* Change this to your desired border color when pressed */\n"
-                                        "}")
+                                          "    background-color: #6359E9; /* Change this to your desired background color */\n"
+                                          "    color: white; /* Change this to your desired text color */\n"
+                                          "    border: 2px; /* Change this to your desired border color and thickness */\n"
+                                          "    border-radius: 15px; /* Adjust the radius to your desired value for rounded corners */\n"
+                                          "    padding: 5px 10px; /* Adjust the padding to your desired value */\n"
+                                          "}\n"
+                                          "\n"
+                                          "QPushButton:hover {\n"
+                                          "    background-color: #0ACDE4; /* Change this to your desired background color on hover */\n"
+                                          "    border: 2px solid #0ACDE4; /* Change this to your desired border color on hover */\n"
+                                          "}\n"
+                                          "\n"
+                                          "QPushButton:pressed {\n"
+                                          "    background-color: #0AADE2; /* Change this to your desired background color when pressed */\n"
+                                          "    border: 2px solid #0AADE2; /* Change this to your desired border color when pressed */\n"
+                                          "}")
         self.ExerciseButton.setObjectName("ExerciseButton")
         self.OptionsButton = QtWidgets.QPushButton(mainFrame)
         self.OptionsButton.setGeometry(QtCore.QRect(90, 310, 631, 51))
@@ -98,22 +98,22 @@ class Ui_mainFramePro(object):
         font.setPointSize(20)
         self.OptionsButton.setFont(font)
         self.OptionsButton.setStyleSheet("QPushButton {\n"
-                                        "    background-color: #6359E9; /* Change this to your desired background color */\n"
-                                        "    color: white; /* Change this to your desired text color */\n"
-                                        "    border: 2px; /* Change this to your desired border color and thickness */\n"
-                                        "    border-radius: 15px; /* Adjust the radius to your desired value for rounded corners */\n"
-                                        "    padding: 5px 10px; /* Adjust the padding to your desired value */\n"
-                                        "}\n"
-                                        "\n"
-                                        "QPushButton:hover {\n"
-                                        "    background-color: #0ACDE4; /* Change this to your desired background color on hover */\n"
-                                        "    border: 2px solid #0ACDE4; /* Change this to your desired border color on hover */\n"
-                                        "}\n"
-                                        "\n"
-                                        "QPushButton:pressed {\n"
-                                        "    background-color: #0AADE2; /* Change this to your desired background color when pressed */\n"
-                                        "    border: 2px solid #0AADE2; /* Change this to your desired border color when pressed */\n"
-                                        "}")
+                                         "    background-color: #6359E9; /* Change this to your desired background color */\n"
+                                         "    color: white; /* Change this to your desired text color */\n"
+                                         "    border: 2px; /* Change this to your desired border color and thickness */\n"
+                                         "    border-radius: 15px; /* Adjust the radius to your desired value for rounded corners */\n"
+                                         "    padding: 5px 10px; /* Adjust the padding to your desired value */\n"
+                                         "}\n"
+                                         "\n"
+                                         "QPushButton:hover {\n"
+                                         "    background-color: #0ACDE4; /* Change this to your desired background color on hover */\n"
+                                         "    border: 2px solid #0ACDE4; /* Change this to your desired border color on hover */\n"
+                                         "}\n"
+                                         "\n"
+                                         "QPushButton:pressed {\n"
+                                         "    background-color: #0AADE2; /* Change this to your desired background color when pressed */\n"
+                                         "    border: 2px solid #0AADE2; /* Change this to your desired border color when pressed */\n"
+                                         "}")
         self.OptionsButton.setObjectName("OptionsButton")
         self.QuitButton = QtWidgets.QPushButton(mainFrame)
         self.QuitButton.setGeometry(QtCore.QRect(60, 400, 221, 41))
@@ -121,22 +121,22 @@ class Ui_mainFramePro(object):
         font.setPointSize(20)
         self.QuitButton.setFont(font)
         self.QuitButton.setStyleSheet("QPushButton {\n"
-                                        "    background-color: #6359E9; /* Change this to your desired background color */\n"
-                                        "    color: white; /* Change this to your desired text color */\n"
-                                        "    border: 2px; /* Change this to your desired border color and thickness */\n"
-                                        "    border-radius: 15px; /* Adjust the radius to your desired value for rounded corners */\n"
-                                        "    padding: 5px 10px; /* Adjust the padding to your desired value */\n"
-                                        "}\n"
-                                        "\n"
-                                        "QPushButton:hover {\n"
-                                        "    background-color: #0ACDE4; /* Change this to your desired background color on hover */\n"
-                                        "    border: 2px solid #0ACDE4; /* Change this to your desired border color on hover */\n"
-                                        "}\n"
-                                        "\n"
-                                        "QPushButton:pressed {\n"
-                                        "    background-color: #0AADE2; /* Change this to your desired background color when pressed */\n"
-                                        "    border: 2px solid #0AADE2; /* Change this to your desired border color when pressed */\n"
-                                        "}")
+                                      "    background-color: #6359E9; /* Change this to your desired background color */\n"
+                                      "    color: white; /* Change this to your desired text color */\n"
+                                      "    border: 2px; /* Change this to your desired border color and thickness */\n"
+                                      "    border-radius: 15px; /* Adjust the radius to your desired value for rounded corners */\n"
+                                      "    padding: 5px 10px; /* Adjust the padding to your desired value */\n"
+                                      "}\n"
+                                      "\n"
+                                      "QPushButton:hover {\n"
+                                      "    background-color: #0ACDE4; /* Change this to your desired background color on hover */\n"
+                                      "    border: 2px solid #0ACDE4; /* Change this to your desired border color on hover */\n"
+                                      "}\n"
+                                      "\n"
+                                      "QPushButton:pressed {\n"
+                                      "    background-color: #0AADE2; /* Change this to your desired background color when pressed */\n"
+                                      "    border: 2px solid #0AADE2; /* Change this to your desired border color when pressed */\n"
+                                      "}")
         self.QuitButton.setObjectName("QuitButton")
 
         self.retranslateUi(mainFrame)
@@ -145,11 +145,12 @@ class Ui_mainFramePro(object):
     def retranslateUi(self, mainFrame):
         _translate = QtCore.QCoreApplication.translate
         mainFrame.setWindowTitle(_translate("mainFrame", "Frame"))
-        self.SensorTestButton.setText(_translate("mainFrame", "sensory test"))
-        self.pushButton_2.setText(_translate("mainFrame", "limit of stability"))
-        self.ExerciseButton.setText(_translate("mainFrame", "exercises"))
-        self.OptionsButton.setText(_translate("mainFrame", "options"))
-        self.QuitButton.setText(_translate("mainFrame", "Quit"))
+        self.SensorTestButton.setText(_translate("mainFrame", "SENSORY TEST"))
+        self.pushButton_2.setText(_translate(
+            "mainFrame", "LIMIT OF STABILITY"))
+        self.ExerciseButton.setText(_translate("mainFrame", "EXERCISE"))
+        self.OptionsButton.setText(_translate("mainFrame", "OPTIONS"))
+        self.QuitButton.setText(_translate("mainFrame", "QUIT"))
 
 
 if os.environ.get('DISPLAY', '') == '':
@@ -166,9 +167,12 @@ class MainWindow(QtWidgets.QMainWindow):
 
         # Connect buttons to their respective functions
         self.ui.QuitButton.clicked.connect(self.close)  # Quit Button
-        self.ui.SensorTestButton.clicked.connect(self.open_sensory_page)  # Sensory Test Button
-        self.ui.ExerciseButton.clicked.connect(self.open_exercise_page)  # Exercises Button
-        self.ui.OptionsButton.clicked.connect(self.open_option_page)  # Options Button
+        self.ui.SensorTestButton.clicked.connect(
+            self.open_sensory_page)  # Sensory Test Button
+        self.ui.ExerciseButton.clicked.connect(
+            self.open_exercise_page)  # Exercises Button
+        self.ui.OptionsButton.clicked.connect(
+            self.open_option_page)  # Options Button
 
     def open_sensory_page(self):
         self.sensory_page = QtWidgets.QMainWindow()

@@ -22,7 +22,6 @@ class Ui_InputFrame(object):
         self.hipHeight=50
         self.doctor_id=""
         self.name=""
-        self.weight=""
         self.gender="male"
     def setupUi(self, InputFrame):
         self.miniHipHeight=50
@@ -30,7 +29,6 @@ class Ui_InputFrame(object):
         self.hipHeight
         self.doctor_id=""
         self.name=""
-        self.weight=""
         self.gender
         InputFrame.setObjectName("InputFrame")
         InputFrame.resize(800, 470)
@@ -111,15 +109,6 @@ class Ui_InputFrame(object):
 "    color: white;  /* Change \'red\' to any color you prefer */\n"
 "}")
         self.label_2.setObjectName("label_2")
-        self.label_3 = QtWidgets.QLabel(InputFrame)
-        self.label_3.setGeometry(QtCore.QRect(40, 160, 101, 21))
-        font = QtGui.QFont()
-        font.setPointSize(15)
-        self.label_3.setFont(font)
-        self.label_3.setStyleSheet("QLabel {\n"
-"    color: white;  /* Change \'red\' to any color you prefer */\n"
-"}")
-        self.label_3.setObjectName("label_3")
         self.label_5 = QtWidgets.QLabel(InputFrame)
         self.label_5.setGeometry(QtCore.QRect(210, 210, 101, 21))
         font = QtGui.QFont()
@@ -138,15 +127,6 @@ class Ui_InputFrame(object):
 "    color: white;  /* Change \'red\' to any color you prefer */\n"
 "}")
         self.label_6.setObjectName("label_6")
-        self.label_7 = QtWidgets.QLabel(InputFrame)
-        self.label_7.setGeometry(QtCore.QRect(200, 160, 41, 21))
-        font = QtGui.QFont()
-        font.setPointSize(15)
-        self.label_7.setFont(font)
-        self.label_7.setStyleSheet("QLabel {\n"
-"    color: white;  /* Change \'red\' to any color you prefer */\n"
-"}")
-        self.label_7.setObjectName("label_7")
         self.maleRadioButton = QtWidgets.QRadioButton(InputFrame)
         self.maleRadioButton.setGeometry(QtCore.QRect(340, 210, 111, 17))
         font = QtGui.QFont()
@@ -202,21 +182,7 @@ class Ui_InputFrame(object):
 "\n"
 "}")
         self.doctroIdInput.setObjectName("doctroIdInput")
-        self.weightInput = QtWidgets.QLineEdit(InputFrame)
-        self.weightInput.setGeometry(QtCore.QRect(130, 160, 61, 31))
-        font = QtGui.QFont()
-        font.setPointSize(15)
-        font.setBold(True)
-        font.setWeight(75)
-        self.weightInput.setFont(font)
-        self.weightInput.setStyleSheet("QLineEdit{\n"
-"    color: white;  /* Change \'red\' to any color you prefer */\n"
-"    background-color:#8C89B4;\n"
-"\n"
-"\n"
-"}")
-        self.weightInput.setObjectName("weightInput")
-
+        
         self.retranslateUi(InputFrame)
         QtCore.QMetaObject.connectSlotsByName(InputFrame)
                 ### connect function to widgets 
@@ -244,7 +210,6 @@ class Ui_InputFrame(object):
     def nextFunc(self):
         self.name=self.nameInput.text
         self.doctor_id=self.doctroIdInput.text
-        self.weight=self.weightInput.text
         if self.maleRadioButton.isChecked():
             self.gender="male"
         else :
@@ -269,20 +234,19 @@ class Ui_InputFrame(object):
         _translate = QtCore.QCoreApplication.translate
         InputFrame.setWindowTitle(_translate("InputFrame", "Frame"))
         self.nextButton.setText(_translate("InputFrame", "Next"))
-        self.backButton.setText(_translate("InputFrame", "back "))
+        self.backButton.setText(_translate("InputFrame", "Back "))
         self.nameInput.setText(_translate("InputFrame", "mohamed Ayman"))
         self.label.setText(_translate("InputFrame", "Name:"))
-        self.label_2.setText(_translate("InputFrame", "Doctor id :"))
-        self.label_3.setText(_translate("InputFrame", "Weigth :"))
+        self.label_2.setText(_translate("InputFrame", "Doctor ID :"))
         self.label_5.setText(_translate("InputFrame", "Gender:"))
-        self.label_6.setText(_translate("InputFrame", "Hip height:"))
-        self.label_7.setText(_translate("InputFrame", "KG"))
-        self.maleRadioButton.setText(_translate("InputFrame", "male"))
-        self.femaleRadioButton.setText(_translate("InputFrame", "female"))
+        self.label_6.setText(_translate("InputFrame", "Hip Height:"))
+        self.maleRadioButton.setText(_translate("InputFrame", "Male"))
+        self.femaleRadioButton.setText(_translate("InputFrame", "Female"))
         self.hipHeightText.setText(_translate("InputFrame", "0"))
         self.label_9.setText(_translate("InputFrame", "cm"))
         self.doctroIdInput.setText(_translate("InputFrame", "123456789"))
-        self.weightInput.setText(_translate("InputFrame", "90"))
+        
+        
 class LoadingScreen(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()

@@ -161,15 +161,15 @@ def show_game_over(score):
     screen.blit(retry_text, ((DEVICE_WIDTH - retry_text.get_width()) // 2, 2 * DEVICE_HEIGHT // 3))
     
     pygame.display.flip()
-gameOverText=MyText(text="game over ",font=pygame.font.Font(None, 100),x=DEVICE_WIDTH/2,y=DEVICE_HEIGHT*0.2,screen=screen)
+gameOverText=MyText(text="GAME OVER ",font=pygame.font.Font(None, 100),x=DEVICE_WIDTH/2,y=DEVICE_HEIGHT*0.2,screen=screen)
 gameOverText.color=(255,0,0)
-startExercizeText=MyText(text="start exercize ",font=pygame.font.Font(None, 100),x=DEVICE_WIDTH/2,y=DEVICE_HEIGHT*0.2,screen=screen)
+startExercizeText=MyText(text="Start Exercise ",font=pygame.font.Font(None, 100),x=DEVICE_WIDTH/2,y=DEVICE_HEIGHT*0.2,screen=screen)
 startExercizeText.color=(255,0,0)
-pleaseWaitText=MyText(text="please wait ",font=pygame.font.Font(None, 100),x=DEVICE_WIDTH/2,y=DEVICE_HEIGHT*0.2,screen=screen)
+pleaseWaitText=MyText(text="Please wait ",font=pygame.font.Font(None, 100),x=DEVICE_WIDTH/2,y=DEVICE_HEIGHT*0.2,screen=screen)
 pleaseWaitText.color=(255,0,0)
 dontMoveText=MyText(text=" and  don't move",font=pygame.font.Font(None, 100),x=DEVICE_WIDTH/2,y=DEVICE_HEIGHT*0.4,screen=screen)
 dontMoveText.color=(255,0,0)
-settignCenterText=MyText(text=" Setting center ........",font=pygame.font.Font(None, 100),x=DEVICE_WIDTH/2,y=DEVICE_HEIGHT*0.6,screen=screen)
+settignCenterText=MyText(text=" Setting Center ........",font=pygame.font.Font(None, 100),x=DEVICE_WIDTH/2,y=DEVICE_HEIGHT*0.6,screen=screen)
 settignCenterText.color=(255,0,0)
 
 class gameStatus():
@@ -204,8 +204,8 @@ def quit():
     pygame.quit()
     sys.exit()
 quitButton=Button(screen=screen,pygame=pygame,text='Quit',posX=DEVICE_HEIGHT*0.7,posY=DEVICE_WIDTH*0.3,do_func=quit)
-restartButton=Button(screen=screen,pygame=pygame,text='restart',posX=DEVICE_HEIGHT*0.7,posY=DEVICE_WIDTH*0.6,do_func=reset)
-startButton=Button(screen=screen,pygame=pygame,text='start',posX=DEVICE_HEIGHT*0.7,posY=DEVICE_WIDTH*0.6,do_func=start)
+restartButton=Button(screen=screen,pygame=pygame,text='Restart',posX=DEVICE_HEIGHT*0.7,posY=DEVICE_WIDTH*0.6,do_func=reset)
+startButton=Button(screen=screen,pygame=pygame,text='Start',posX=DEVICE_HEIGHT*0.7,posY=DEVICE_WIDTH*0.6,do_func=start)
 def game_over(score):
     scoreText=MyText(text=f"Score:{str(int(score))} ",font=pygame.font.Font(None, 100),x=DEVICE_WIDTH/2,y=DEVICE_HEIGHT*0.5,screen=screen)
     scoreText.color=(255,0,0)

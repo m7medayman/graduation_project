@@ -1,8 +1,10 @@
+import serial
 from person import Person
 
 
 class TestModel():
     def __init__(self,person:Person,period:float,hipHight) -> None:
+        self.ser = serial.Serial('/dev/ttyACM0', 31250)
         self.person=person
         self._period=period
         self._isrunning=False
@@ -11,7 +13,7 @@ class TestModel():
         self._currentTime=0
         self._xData=[]
         self._yData=[]
-        self.precentList=[]
+        self.perecentList=[0,0,0,0,0,0]
         self.isEnd=False
         self.hipHeight=int(hipHight)*100 # to make it mm 
         self.tanAngle12=0.22169466
@@ -25,7 +27,7 @@ class TestModel():
         self._yData=[]
     def getPrecentList(self):
         print("get percent List ###########################################################################")
-        return self.precentList
+        return self.perecentList
     def _endWithOutSavign(self):
         self._isrunning=False
         self._currentTime=0
@@ -39,15 +41,16 @@ class TestModel():
                 self.exportData()
     def _endTest(self):
         self._isrunning=False
-        self._currentTestNumber+=1
+        
         self.person.addTest(xData=self._xData,yData=self._yData)
-        xSensorPrecent=self.getResultPrecent(values=self._xData)
-        ySensorPrecent=self.getResultPrecent(values=self._yData)
-        print(f'precentx : {xSensorPrecent}')
-        print(f'precenty : {ySensorPrecent}')
-        totalPrecent=(xSensorPrecent+ySensorPrecent)/2
-        totalPrecent=int(totalPrecent*100)
-        self.precentList.append(totalPrecent)
+        xSensorPerecent=self.getResultPrecent(values=self._xData)
+        ySensorPerecent=self.getResultPrecent(values=self._yData)
+        print(f'perecentx : {xSensorPerecent}')
+        print(f'perecenty : {ySensorPerecent}')
+        totalPerecent=(xSensorPerecent+ySensorPerecent)/2
+        totalPerecent=int(totalPerecent*100)
+        self.perecentList[self._currentTestNumber]=totalPerecent
+        self._currentTestNumber+=1
         self._currentTime=0
         self.isEnd=True
     def updateLoop(self,xRead,yRead):
@@ -69,12 +72,12 @@ class TestModel():
         return int(value)
     def getSatausText(self):
         if(self._isrunning):
-            return "stop test"
+            return "Stop Test"
         else:
             if(self._currentTestNumber<self._testsNumber):
-                return "run test"
+                return "Run Test"
             else:
-                return "export data"
+                return "Export Data"
     def getCurrentTestNumber(self):
         return self._currentTestNumber
     def getCondText(self):
