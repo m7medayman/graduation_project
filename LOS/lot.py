@@ -167,7 +167,7 @@ def main():
         if keys[pygame.K_p]:
             Status.show_path = not Status.show_path 
         Status.player_position[0]=50+PLAYER_CONTROLLER.getMeanFilterX()*400# Toggle path visibility
-
+        Status.player_position[1]=50+PLAYER_CONTROLLER.getMeanFilterX()*400
         # Save player position
         Status.playr_path.append(tuple(Status.player_position))
         
@@ -193,7 +193,8 @@ def main():
                             Status.ti=False
                             if(Status.finish):
                                 DeactivateAll()
-                                
+        ##up date
+        
 
         # Clear the screen
         screen.fill((0, 0, 0))
