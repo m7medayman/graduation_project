@@ -21,10 +21,9 @@ from test_model import TestModel
 from person import Person
 
 class Ui_sensoryFramePro(object):
-    def __init__(self,hipHeight,Name,motorSpeed):
+    def __init__(self,hipHeight,Name):
         self.name=Name
         self.hipHeight=hipHeight
-        self.motorSpeed=motorSpeed
     def setupUi(self, sensoryFrame):
         self.sensorsModel=SensoryModel()
         sensoryFrame.setObjectName("sensoryFrame")
