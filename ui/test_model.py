@@ -10,6 +10,7 @@ class TestModel():
         self._period=period
         self._isrunning=False
         self._currentTestNumber=0
+        
         self._testsNumber=6
         self._currentTime=0
         self._xData=[]
@@ -111,6 +112,6 @@ class TestModel():
         if(self._currentTestNumber<3):
             result=random.randint(80, 95)
         else:
-            result=random.randint(60,90)
+            result=random.randint(60,85)
         return result
 

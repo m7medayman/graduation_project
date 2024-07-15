@@ -324,6 +324,7 @@ class Ui_sensoryFramePro(object):
                 self.updateFrameColor(frame=frame,hexColor="#8C89B6")
             
     def updateChart(self):
+
         self.bar_chart_widget.update_chart(new_percentages=self.testModel.getPrecentList())    
     def update(self):
         

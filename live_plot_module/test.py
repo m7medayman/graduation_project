@@ -4,11 +4,11 @@ from PyQt5.QtCore import QTimer
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 
-
 class BarChartWidget(QWidget):
     def __init__(self, percentages):
         super().__init__()
         self.percentages = percentages
+        self.testLimits = [90, 85, 85, 75, 70, 60]
         self.initUI()
 
     def initUI(self):
@@ -34,7 +34,13 @@ class BarChartWidget(QWidget):
 
         # Create the bar chart
         categories = [f"C {i+1}" for i in range(len(self.percentages))]
-        bar_colors = ['green' if p > 90 else 'red' for p in self.percentages]
+        bar_colors = []
+        for i in range(len(self.percentages)):
+            if self.percentages[i] >= self.testLimits[i]:
+                bar_colors.append("green")
+            else:
+                bar_colors.append("red")
+
         bars = ax.bar(categories, self.percentages, color=bar_colors)
 
         # Customize chart elements
@@ -51,6 +57,11 @@ class BarChartWidget(QWidget):
         ax.spines['left'].set_color('gray')
         ax.spines['right'].set_color('gray')
 
+        # Add text labels for each bar
+        for i, bar in enumerate(bars):
+            ax.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 1, f"C {i+1}",
+                    ha='center', va='bottom', color='white')
+
         # Draw the canvas
         self.canvas.draw()
 
@@ -61,7 +72,7 @@ class BarChartWidget(QWidget):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    percentages = [85, 92, 88, 95, 90, 87, 91]
+    percentages = [85, 92, 88, 95,80,40]
     main = QMainWindow()
     main.setCentralWidget(BarChartWidget(percentages))
     main.show()
