@@ -3,9 +3,13 @@ import pygame
 import sys
 from button import Button
 from game_controller import PlayerYController
+from text import MyText
 if os.environ.get('DISPLAY', '') == '':
     print('no display found. Using :0.0')
     os.environ.__setitem__('DISPLAY', ':0.0')
+screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+PLAYER_CONTROLLER=PlayerYController()
+
 class TargetCircle:
     def __init__(self, position, size, activation_time):
         self.position = position  # Center position of the circle (x, y)
@@ -37,6 +41,26 @@ class Status:
     finish=False
     timer_event= pygame.USEREVENT + 1
     player_position=[0,0]
+    startFlag=False
+gameOverText=MyText(text="GAME OVER ",font=pygame.font.Font(None, 100),x=DEVICE_WIDTH/2,y=DEVICE_HEIGHT*0.2,screen=screen)
+gameOverText.color=(255,0,0)
+startExercizeText=MyText(text="Start Exercise ",font=pygame.font.Font(None, 100),x=DEVICE_WIDTH/2,y=DEVICE_HEIGHT*0.2,screen=screen)
+startExercizeText.color=(255,0,0)
+pleaseWaitText=MyText(text="Please wait ",font=pygame.font.Font(None, 100),x=DEVICE_WIDTH/2,y=DEVICE_HEIGHT*0.2,screen=screen)
+pleaseWaitText.color=(255,0,0)
+dontMoveText=MyText(text=" and  don't move",font=pygame.font.Font(None, 100),x=DEVICE_WIDTH/2,y=DEVICE_HEIGHT*0.4,screen=screen)
+dontMoveText.color=(255,0,0)
+settignCenterText=MyText(text=" Setting Center ........",font=pygame.font.Font(None, 100),x=DEVICE_WIDTH/2,y=DEVICE_HEIGHT*0.6,screen=screen)
+settignCenterText.color=(255,0,0)
+def start():
+    screen.fill(color=(0,0,0))
+    pleaseWaitText.draw()
+    dontMoveText.draw()
+    settignCenterText.draw()
+    pygame.display.update()
+    PLAYER_CONTROLLER.reset()
+    PLAYER_CONTROLLER.setCenter()
+    Status.startFlag=True
 def main():
     # Initialize Pygame
     pygame.init()
@@ -82,6 +106,7 @@ def main():
     Status.finish=False
     
     def reset():
+
         Status.ti=False
         Status.currentActivate = 0
         Status.player_path = []
@@ -89,8 +114,10 @@ def main():
     # Flag to show/hide the path
         Status.show_path = False
         Status.finish=False
+        PLAYER_CONTROLLER.reset()
         Status.timer_event= pygame.USEREVENT + 1
         update()
+
         
     quitButton=Button(screen=screen,pygame=pygame,text='Quit',posX=50,posY=screen_width-200,do_func=quit,w=100)
     restartButton=Button(screen=screen,pygame=pygame,text='Restart',posX=400,posY=50,do_func=reset,w=150)
@@ -113,8 +140,8 @@ def main():
     start_ticks = pygame.time.get_ticks()
     WHITE = (255, 255, 255)
     font = pygame.font.Font(None, 74)
-    pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
-    playerController=PlayerYController()
+    
+    
     while True:
         
         dt = clock.tick(30)  # Ensure max framerate is 30 FPS
@@ -127,7 +154,7 @@ def main():
                 print("7 seconds have passed!")
         
 
-        # Handle key presses
+        # Handle player move
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT]:
             Status.player_position[0] -= 5
@@ -138,7 +165,8 @@ def main():
         if keys[pygame.K_DOWN]:
             Status.player_position[1] += 5
         if keys[pygame.K_p]:
-            Status.show_path = not Status.show_path  # Toggle path visibility
+            Status.show_path = not Status.show_path 
+        Status.player_position[0]=50+PLAYER_CONTROLLER.getMeanFilterX()*400# Toggle path visibility
 
         # Save player position
         Status.playr_path.append(tuple(Status.player_position))
