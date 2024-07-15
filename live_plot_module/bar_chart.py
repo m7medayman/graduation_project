@@ -1,9 +1,3 @@
-import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QFrame, QPushButton
-from PyQt5.QtCore import QTimer
-from matplotlib.figure import Figure
-from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
-
 
 class BarChartWidget(QWidget):
     def __init__(self, percentages):
@@ -34,7 +28,8 @@ class BarChartWidget(QWidget):
 
         # Create the bar chart
         categories = [f"C {i+1}" for i in range(len(self.percentages))]
-        bars = ax.bar(categories, self.percentages, color='gray')
+        bar_colors = ['green' if p > 80 else 'red' for p in self.percentages]
+        bars = ax.bar(categories, self.percentages, color=bar_colors)
 
         # Customize chart elements
         ax.set_ylim(0, 100)
@@ -42,6 +37,7 @@ class BarChartWidget(QWidget):
         # Customize tick labels
         ax.tick_params(axis='x', colors='gray')
         ax.tick_params(axis='y', colors='gray')
+        ax.set_xticklabels([])  # Remove x-axis tick labels
 
         # Customize spines
         ax.spines['bottom'].set_color('gray')
@@ -51,6 +47,7 @@ class BarChartWidget(QWidget):
 
         # Draw the canvas
         self.canvas.draw()
+
 
     def update_chart(self, new_percentages):
         self.percentages = new_percentages
