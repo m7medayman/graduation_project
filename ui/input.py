@@ -17,6 +17,7 @@ from sensoryFramePro import Ui_sensoryFramePro
 class Ui_InputFrame(object):
     def __init__(self):
         super().__init__()
+        self.value=500
         self.miniHipHeight=50
         self.maxDiffHipHeight=100
         self.hipHeight=50
@@ -189,6 +190,58 @@ class Ui_InputFrame(object):
         self.backButton.clicked.connect(self.go_to_home)
         self.nextButton.clicked.connect(self.nextFunc)
         self.hipHeightSlider.valueChanged.connect(self.updateHipHeight)
+        self.programLabel = QtWidgets.QLabel(InputFrame)
+        self.programLabel.setGeometry(QtCore.QRect(20, 30, 101, 21))
+        font = QtGui.QFont()
+        font.setPointSize(15)
+        self.programLabel.setFont(font)
+        self.programLabel.setStyleSheet("QLabel {\n"
+                                        "    color: white;\n"
+                                        "}")
+        self.programLabel.setObjectName("programLabel")
+
+        self.program1RadioButton = QtWidgets.QRadioButton(InputFrame)
+        self.program1RadioButton.setGeometry(QtCore.QRect(140, 30, 111, 17))
+        font = QtGui.QFont()
+        font.setPointSize(15)
+        self.program1RadioButton.setFont(font)
+        self.program1RadioButton.setStyleSheet("QRadioButton {\n"
+                                               "    color: white;\n"
+                                               "}")
+        self.program1RadioButton.setObjectName("program1RadioButton")
+
+        self.program2RadioButton = QtWidgets.QRadioButton(InputFrame)
+        self.program2RadioButton.setGeometry(QtCore.QRect(140, 70, 111, 17))
+        font = QtGui.QFont()
+        font.setPointSize(15)
+        self.program2RadioButton.setFont(font)
+        self.program2RadioButton.setStyleSheet("QRadioButton {\n"
+                                               "    color: white;\n"
+                                               "}")
+        self.program2RadioButton.setObjectName("program2RadioButton")
+
+        self.program3RadioButton = QtWidgets.QRadioButton(InputFrame)
+        self.program3RadioButton.setGeometry(QtCore.QRect(140, 110, 111, 17))
+        font = QtGui.QFont()
+        font.setPointSize(15)
+        self.program3RadioButton.setFont(font)
+        self.program3RadioButton.setStyleSheet("QRadioButton {\n"
+                                               "    color: white;\n"
+                                               "}")
+        self.program3RadioButton.setObjectName("program3RadioButton")
+
+        self.programGroup = QtWidgets.QButtonGroup(InputFrame)
+        self.programGroup.addButton(self.program1RadioButton)
+        self.programGroup.addButton(self.program2RadioButton)
+        self.programGroup.addButton(self.program3RadioButton)
+
+        self.retranslateUi(InputFrame)
+        QtCore.QMetaObject.connectSlotsByName(InputFrame)
+
+        # Set up connections
+        self.program1RadioButton.clicked.connect(self.onProgramRadioButtonClick)
+        self.program2RadioButton.clicked.connect(self.onProgramRadioButtonClick)
+        self.program3RadioButton.clicked.connect(self.onProgramRadioButtonClick)
 
 
     def go_to_home(self):
@@ -210,10 +263,17 @@ class Ui_InputFrame(object):
     def nextFunc(self):
         self.name=self.nameInput.text
         self.doctor_id=self.doctroIdInput.text
+        value=600
         if self.maleRadioButton.isChecked():
             self.gender="male"
         else :
             self.gender="female"
+        if self.program1RadioButton.isChecked():
+            self.value=500
+        elif self.program2RadioButton.isChecked():
+            self.value=600
+        elif self.program1RadioButton.isChecked():
+            self.value=800
         self.open_sensory_page()
 
 
@@ -245,6 +305,10 @@ class Ui_InputFrame(object):
         self.hipHeightText.setText(_translate("InputFrame", "0"))
         self.label_9.setText(_translate("InputFrame", "cm"))
         self.doctroIdInput.setText(_translate("InputFrame", "123456789"))
+        self.programLabel.setText(_translate("ProgramSelectionFrame", "Program:"))
+        self.program1RadioButton.setText(_translate("ProgramSelectionFrame", "Program 1"))
+        self.program2RadioButton.setText(_translate("ProgramSelectionFrame", "Program 2"))
+        self.program3RadioButton.setText(_translate("ProgramSelectionFrame", "Program 3"))
         
         
 class LoadingScreen(QtWidgets.QWidget):
