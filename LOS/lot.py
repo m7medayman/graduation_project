@@ -42,6 +42,7 @@ class Status:
     timer_event= pygame.USEREVENT + 1
     player_position=[0,0]
     startFlag=False
+DEVICE_WIDTH, DEVICE_HEIGHT = screen.get_size()
 gameOverText=MyText(text="GAME OVER ",font=pygame.font.Font(None, 100),x=DEVICE_WIDTH/2,y=DEVICE_HEIGHT*0.2,screen=screen)
 gameOverText.color=(255,0,0)
 startExercizeText=MyText(text="Start Exercise ",font=pygame.font.Font(None, 100),x=DEVICE_WIDTH/2,y=DEVICE_HEIGHT*0.2,screen=screen)
@@ -52,6 +53,8 @@ dontMoveText=MyText(text=" and  don't move",font=pygame.font.Font(None, 100),x=D
 dontMoveText.color=(255,0,0)
 settignCenterText=MyText(text=" Setting Center ........",font=pygame.font.Font(None, 100),x=DEVICE_WIDTH/2,y=DEVICE_HEIGHT*0.6,screen=screen)
 settignCenterText.color=(255,0,0)
+quitButton=Button(screen=screen,pygame=pygame,text='Quit',posX=DEVICE_HEIGHT*0.7,posY=DEVICE_WIDTH*0.3,do_func=quit,w=150)
+startButton=Button(screen=screen,pygame=pygame,text='Start',posX=DEVICE_HEIGHT*0.7,posY=DEVICE_WIDTH*0.6,do_func=start)
 def start():
     screen.fill(color=(0,0,0))
     pleaseWaitText.draw()
@@ -61,6 +64,12 @@ def start():
     PLAYER_CONTROLLER.reset()
     PLAYER_CONTROLLER.setCenter()
     Status.startFlag=True
+def start_menu():
+    screen.fill(color=(0,0,0))
+    startExercizeText.draw()
+    startButton.draw()
+    quitButton.draw()
+    pygame.display.update()
 def main():
     # Initialize Pygame
     pygame.init()
@@ -145,6 +154,9 @@ def main():
     while True:
         
         dt = clock.tick(30)  # Ensure max framerate is 30 FPS
+        if not Status.startFlag:
+            start_menu()
+            continue
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -155,19 +167,9 @@ def main():
         
 
         # Handle player move
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_LEFT]:
-            Status.player_position[0] -= 5
-        if keys[pygame.K_RIGHT]:
-            Status.player_position[0] += 5
-        if keys[pygame.K_UP]:
-            Status.player_position[1] -= 5
-        if keys[pygame.K_DOWN]:
-            Status.player_position[1] += 5
-        if keys[pygame.K_p]:
-            Status.show_path = not Status.show_path 
+
         Status.player_position[0]=50+PLAYER_CONTROLLER.getMeanFilterX()*400# Toggle path visibility
-        Status.player_position[1]=50+PLAYER_CONTROLLER.getMeanFilterX()*400
+        Status.player_position[1]=50+PLAYER_CONTROLLER.getMeanFilterX()*200
         # Save player position
         Status.playr_path.append(tuple(Status.player_position))
         
