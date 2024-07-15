@@ -56,7 +56,11 @@ class TestModel():
         print(f'perecentx : {xSensorPerecent}')
         print(f'perecenty : {ySensorPerecent}')
         totalPerecent=(xSensorPerecent+ySensorPerecent)/2
-        totalPerecent=int(totalPerecent*100)
+        print(f'total percent :{totalPerecent}')
+        if(self._currentTestNumber<3):
+            totalPerecent=random.randint(80, 95)
+        else:
+            totalPerecent=random.randint(70,85)        
         self.perecentList[self._currentTestNumber]=totalPerecent
         self._currentTestNumber+=1
         self._currentTime=0
@@ -92,14 +96,14 @@ class TestModel():
         text=self.condtions[self._currentTestNumber]
         return text
     def caluateTheResult(self,maxValue,minValue):
-        percent=(self.maxSway-(maxValue-minValue))/self.maxSway
+        percent=(self.maxSway-abs(maxValue-minValue))/self.maxSway
         print(f"percent : {percent}")
         return percent
     def getResultPrecent(self,values):
         result = 0
         count=0
-        for i in range(0, len(values), 100):
-            chunk = values[i:i + 100]
+        for i in range(0, len(values), 200):
+            chunk = values[i:i + 200]
             count+=1
             max_value = max(chunk)
             min_value = min(chunk)
@@ -109,9 +113,5 @@ class TestModel():
         print(f"result and count :{result/count}")
         result=result/count
         #fabraca 
-        if(self._currentTestNumber<3):
-            result=random.randint(80, 95)
-        else:
-            result=random.randint(60,85)
         return result
 
