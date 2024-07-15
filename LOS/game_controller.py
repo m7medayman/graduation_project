@@ -89,7 +89,19 @@ class PlayerYController:
         if value<0:
             return 0
         return value
+    def getPosstionY(self):
+        ## that mean 0 will out  0.5 
+        # the range will be between -100 to 100 becase the max is 200
+        miniRange=self.maxPlayerPostionY//2
+        YSensor=self.vlxModule.getSensorY()
+        value=YSensor+miniRange
+        value=value/self.maxPlayerPostionY
         
+        if(value>1):
+            return 1
+        if value<0:
+            return 0
+        return value          
     def reset(self):
         self.vlxModule.reset()
     def close(self):
