@@ -56,11 +56,7 @@ class TestModel():
         print(f'perecentx : {xSensorPerecent}')
         print(f'perecenty : {ySensorPerecent}')
         totalPerecent=(xSensorPerecent+ySensorPerecent)/2
-        print(f'total percent :{totalPerecent}')
-        if(self._currentTestNumber<3):
-            totalPerecent=random.randint(80, 95)
-        else:
-            totalPerecent=random.randint(70,85)        
+        print(f'total percent :{totalPerecent}')     
         self.perecentList[self._currentTestNumber]=totalPerecent
         self._currentTestNumber+=1
         self._currentTime=0

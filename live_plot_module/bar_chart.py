@@ -8,7 +8,7 @@ class BarChartWidget(QWidget):
     def __init__(self, percentages):
         super().__init__()
         self.percentages = percentages
-        self.testLimits = [90, 85, 85, 75, 70, 60]
+        self.testLimits = [85, 80, 80, 70, 55, 45]
         self.initUI()
 
     def initUI(self):
