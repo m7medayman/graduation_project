@@ -93,7 +93,7 @@ class EnemyCar:
         self.image_name = random.choice(list(car_images.keys()))
         self.image = car_images[self.image_name]
         self.image = pygame.transform.scale(self.image, (self.width*2, self.height+25))
-        self.speed = 10
+        self.speed = gameStatus.gamespeed
         self.lane = lane
         self.x = MARGIN_WIDTH + self.lane * LANE_WIDTH + (LANE_WIDTH - self.width) // 2
         self.y = -self.height
@@ -135,7 +135,7 @@ def get_unique_sample():
 def move_lines():
     global line_positions
     for i in range(len(line_positions)):
-        line_positions[i] += 10
+        line_positions[i] += gameStatus.gamespeed
         if line_positions[i] > DEVICE_HEIGHT:
             line_positions[i] = 0
 
@@ -175,6 +175,9 @@ settignCenterText.color=(255,0,0)
 class gameStatus():
     startFlag=False
     score=0
+    realScore=0
+    hardScore=0
+    gamespeed=5
     playerDied=False
     enemies=[EnemyCar(i) for i in get_unique_sample()]
 
@@ -277,8 +280,11 @@ def main():
         for enemy in gameStatus.enemies:
             enemy.draw(screen)
         
-        gameStatus.score += 1  # Update score (example increment)
-        
+          # Update score (example increment)
+        gameStatus.realScore+=1
+        gameStatus.score = int(gameStatus.realScore/100)
+        if(gameStatus.score%300 and gameStatus.gamespeed<20):
+            gameStatus.gamespeed+=1
         pygame.display.flip()
         clock.tick(FPS)
 
