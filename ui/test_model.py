@@ -56,6 +56,7 @@ class TestModel():
         print(f'perecentx : {xSensorPerecent}')
         print(f'perecenty : {ySensorPerecent}')
         totalPerecent=(xSensorPerecent+ySensorPerecent)/2
+        totalPerecent=totalPerecent*100
         print(f'total percent :{totalPerecent}')     
         self.perecentList[self._currentTestNumber]=totalPerecent
         self._currentTestNumber+=1
@@ -98,8 +99,8 @@ class TestModel():
     def getResultPrecent(self,values):
         result = 0
         count=0
-        for i in range(0, len(values), 200):
-            chunk = values[i:i + 200]
+        for i in range(0, len(values), 300):
+            chunk = values[i:i + 300]
             count+=1
             max_value = max(chunk)
             min_value = min(chunk)
