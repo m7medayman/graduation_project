@@ -55,7 +55,15 @@ car_images = {
     "black_viper": pygame.image.load("Black_viper.bmp"),
     "car": pygame.image.load("Car.bmp")
 }
-
+class gameStatus():
+    startFlag=False
+    score=0
+    realScore=0
+    hardScore=0
+    gamespeed=5
+    playerDied=False
+    enemies=[]
+    diff=0
 class Player:
     def __init__(self):
         self.width = LANE_WIDTH // 2
@@ -172,19 +180,15 @@ dontMoveText.color=(255,0,0)
 settignCenterText=MyText(text=" Setting Center ........",font=pygame.font.Font(None, 100),x=DEVICE_WIDTH/2,y=DEVICE_HEIGHT*0.6,screen=screen)
 settignCenterText.color=(255,0,0)
 
-class gameStatus():
-    startFlag=False
-    score=0
-    realScore=0
-    hardScore=0
-    gamespeed=5
-    playerDied=False
-    enemies=[EnemyCar(i) for i in get_unique_sample()]
+
 
 def reset():
     gameStatus.score = 0
     gameStatus.playerDied=False
     gameStatus.enemies=[EnemyCar(i) for i in get_unique_sample()]
+    gameStatus.realScore=0
+    gameStatus.gamespeed=5
+    gameStatus.diff=0
     screen.fill(color=(0,0,0))
     pleaseWaitText.draw()
     dontMoveText.draw()
@@ -270,6 +274,11 @@ def main():
             gameStatus.enemies.extend(EnemyCar(i) for i in get_unique_sample())
         if all(enemy.y > DEVICE_HEIGHT for enemy in gameStatus.enemies):
             gameStatus.enemies.pop()
+            gameStatus.diff+=1
+            if(gameStatus.diff>2 and gameStatus.gamespeed<20):
+                gameStatus.gamespeed+=10
+                print(gameStatus.gamespeed)
+                gameStatus.diff=0
             #enemies = [EnemyCar() for _ in range(random.randint(1, 2))]
 
         screen.fill(BLACK)
@@ -282,9 +291,7 @@ def main():
         
           # Update score (example increment)
         gameStatus.realScore+=1
-        gameStatus.score = int(gameStatus.realScore/100)
-        if(gameStatus.score%300 and gameStatus.gamespeed<20):
-            gameStatus.gamespeed+=1
+        gameStatus.score = int(gameStatus.realScore/10)
         pygame.display.flip()
         clock.tick(FPS)
 
