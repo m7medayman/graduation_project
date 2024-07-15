@@ -1,6 +1,11 @@
+import os
 import pygame
 import sys
 from button import Button
+from game_controller import PlayerYController
+if os.environ.get('DISPLAY', '') == '':
+    print('no display found. Using :0.0')
+    os.environ.__setitem__('DISPLAY', ':0.0')
 class TargetCircle:
     def __init__(self, position, size, activation_time):
         self.position = position  # Center position of the circle (x, y)
@@ -31,6 +36,7 @@ class Status:
     show_path = False
     finish=False
     timer_event= pygame.USEREVENT + 1
+    player_position=[0,0]
 def main():
     # Initialize Pygame
     pygame.init()
@@ -51,7 +57,7 @@ def main():
     # Define player properties
     player_radius = 10
     player_color = (0, 255, 0)  # Green
-    player_position = [screen_width // 2, screen_height // 2]
+    Status.player_position = [new_screen_width // 2, screen_height // 2]
     new_screen_width=screen_width-80
     # Initialize target circles
     target_positions = [
@@ -79,6 +85,7 @@ def main():
         Status.ti=False
         Status.currentActivate = 0
         Status.player_path = []
+        Status.player_position = [new_screen_width // 2, screen_height // 2]
     # Flag to show/hide the path
         Status.show_path = False
         Status.finish=False
@@ -107,6 +114,7 @@ def main():
     WHITE = (255, 255, 255)
     font = pygame.font.Font(None, 74)
     pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+    playerController=PlayerYController()
     while True:
         
         dt = clock.tick(30)  # Ensure max framerate is 30 FPS
@@ -122,26 +130,26 @@ def main():
         # Handle key presses
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT]:
-            player_position[0] -= 5
+            Status.player_position[0] -= 5
         if keys[pygame.K_RIGHT]:
-            player_position[0] += 5
+            Status.player_position[0] += 5
         if keys[pygame.K_UP]:
-            player_position[1] -= 5
+            Status.player_position[1] -= 5
         if keys[pygame.K_DOWN]:
-            player_position[1] += 5
+            Status.player_position[1] += 5
         if keys[pygame.K_p]:
             Status.show_path = not Status.show_path  # Toggle path visibility
 
         # Save player position
-        Status.playr_path.append(tuple(player_position))
+        Status.playr_path.append(tuple(Status.player_position))
         
         # Check collision with player and activate target circle
         if(not Status.finish):
               for circle in target_circles:
                     if circle.active:
                         circle_radius = circle.size // 2
-                        distance = ((player_position[0] - circle.position[0]) ** 2 +
-                        (player_position[1] - circle.position[1]) ** 2) ** 0.5
+                        distance = ((Status.player_position[0] - circle.position[0]) ** 2 +
+                        (Status.player_position[1] - circle.position[1]) ** 2) ** 0.5
                         if (distance <= player_radius + circle_radius)or Status.ti:
                     # collision
                             pygame.time.set_timer(Status.timer_event, 7000) 
@@ -177,7 +185,7 @@ def main():
     # Render the timer
         timer_text = font.render(f"s: {int(elapsed_seconds)}", True, WHITE)
         screen.blit(timer_text, (650, 200))
-        pygame.draw.circle(screen, player_color, player_position, player_radius)
+        pygame.draw.circle(screen, player_color, Status.player_position, player_radius)
         quitButton.draw()
         if(Status.finish):
             restartButton.draw()
