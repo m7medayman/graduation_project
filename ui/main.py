@@ -26,7 +26,20 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.QuitButton.clicked.connect(self.close)
         self.ui.SensorTestButton.clicked.connect(self.open_sensory_page)
         self.ui.ExerciseButton.clicked.connect(self.open_exercise_page)
+        self.ui.pushButton_2.clicked.connect(self.oped_los_test)
         self.ui.OptionsButton.clicked.connect(self.open_option_page)
+    
+    def oped_los_test(self):
+        self.loading_screen = LoadingScreen()
+        self.loading_screen.show()
+        # Path to your Pygame script
+        pygame_script_path = '/home/pi/body balance seeker/LOS/lot.py'
+        # Start the Pygame script using subprocess
+        subprocess.Popen(['python', pygame_script_path])
+                # Close the loading screen after a short delay
+        QtCore.QTimer.singleShot(25000, self.loading_screen.close)
+        # self.close()
+        
 
     def open_sensory_page(self):
         self.loading_screen = LoadingScreen()

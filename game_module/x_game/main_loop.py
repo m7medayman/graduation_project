@@ -60,7 +60,7 @@ class gameStatus():
     score=0
     realScore=0
     hardScore=0
-    gamespeed=5
+    gamespeed=7
     playerDied=False
     enemies=[]
     diff=0
@@ -274,11 +274,11 @@ def main():
             gameStatus.enemies.extend(EnemyCar(i) for i in get_unique_sample())
         if all(enemy.y > DEVICE_HEIGHT for enemy in gameStatus.enemies):
             gameStatus.enemies.pop()
-            gameStatus.diff+=1
-            if(gameStatus.diff>2 and gameStatus.gamespeed<20):
-                gameStatus.gamespeed+=10
-                print(gameStatus.gamespeed)
-                gameStatus.diff=0
+            # gameStatus.diff+=1
+            # if(gameStatus.diff>2 and gameStatus.gamespeed<20):
+            #     gameStatus.gamespeed+=10
+            #     print(gameStatus.gamespeed)
+            #     gameStatus.diff=0
             #enemies = [EnemyCar() for _ in range(random.randint(1, 2))]
 
         screen.fill(BLACK)
@@ -291,7 +291,13 @@ def main():
         
           # Update score (example increment)
         gameStatus.realScore+=1
+        gameStatus.diff+=1
+        if(gameStatus.diff>300 and gameStatus.gamespeed<20):
+            gameStatus.diff=0
+            gameStatus.gamespeed+=3
+
         gameStatus.score = int(gameStatus.realScore/10)
+        
         pygame.display.flip()
         clock.tick(FPS)
 

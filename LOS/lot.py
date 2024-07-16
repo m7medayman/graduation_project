@@ -9,7 +9,7 @@ if os.environ.get('DISPLAY', '') == '':
     os.environ.__setitem__('DISPLAY', ':0.0')
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 PLAYER_CONTROLLER=PlayerYController()
-
+pygame.init()
 class TargetCircle:
     def __init__(self, position, size, activation_time):
         self.position = position  # Center position of the circle (x, y)
@@ -41,7 +41,17 @@ class Status:
     finish=False
     timer_event= pygame.USEREVENT + 1
     player_position=[0,0]
+    start_ticks=0
     startFlag=False
+def start():
+    screen.fill(color=(0,0,0))
+    pleaseWaitText.draw()
+    dontMoveText.draw()
+    settignCenterText.draw()
+    pygame.display.update()
+    PLAYER_CONTROLLER.reset()
+    PLAYER_CONTROLLER.setCenter()
+    Status.startFlag=True
 DEVICE_WIDTH, DEVICE_HEIGHT = screen.get_size()
 gameOverText=MyText(text="GAME OVER ",font=pygame.font.Font(None, 100),x=DEVICE_WIDTH/2,y=DEVICE_HEIGHT*0.2,screen=screen)
 gameOverText.color=(255,0,0)
@@ -54,16 +64,7 @@ dontMoveText.color=(255,0,0)
 settignCenterText=MyText(text=" Setting Center ........",font=pygame.font.Font(None, 100),x=DEVICE_WIDTH/2,y=DEVICE_HEIGHT*0.6,screen=screen)
 settignCenterText.color=(255,0,0)
 quitButton=Button(screen=screen,pygame=pygame,text='Quit',posX=DEVICE_HEIGHT*0.7,posY=DEVICE_WIDTH*0.3,do_func=quit,w=150)
-startButton=Button(screen=screen,pygame=pygame,text='Start',posX=DEVICE_HEIGHT*0.7,posY=DEVICE_WIDTH*0.6,do_func=start)
-def start():
-    screen.fill(color=(0,0,0))
-    pleaseWaitText.draw()
-    dontMoveText.draw()
-    settignCenterText.draw()
-    pygame.display.update()
-    PLAYER_CONTROLLER.reset()
-    PLAYER_CONTROLLER.setCenter()
-    Status.startFlag=True
+startButton=Button(screen=screen,pygame=pygame,text='Start',posX=DEVICE_HEIGHT*0.7,posY=DEVICE_WIDTH*0.6,do_func=start,w=150)
 def start_menu():
     screen.fill(color=(0,0,0))
     startExercizeText.draw()
@@ -72,7 +73,6 @@ def start_menu():
     pygame.display.update()
 def main():
     # Initialize Pygame
-    pygame.init()
     Status.timer_event = pygame.USEREVENT + 1
     pygame.time.set_timer(Status.timer_event, 7000)  # 7000 milliseconds = 7 seconds
 
@@ -81,17 +81,16 @@ def main():
     screen_height = 480
 
     # Create the screen
-    screen = pygame.display.set_mode((screen_width, screen_height))
     pygame.display.set_caption("Target Circle Game")
 
     # Set up the clock for a decent framerate
     clock = pygame.time.Clock()
-
+    new_screen_width=screen_width-80
     # Define player properties
     player_radius = 10
     player_color = (0, 255, 0)  # Green
     Status.player_position = [new_screen_width // 2, screen_height // 2]
-    new_screen_width=screen_width-80
+   
     # Initialize target circles
     target_positions = [
         (new_screen_width // 2, screen_height // 2),  # Center
@@ -107,8 +106,10 @@ def main():
     activationSequence = [1, 0, 2, 0, 3, 0, 4]
     Status.currentActivate = 0
     def quit():
+        PLAYER_CONTROLLER.close()
         pygame.quit()
         sys.exit()
+
     Status.playr_path = []
     # Flag to show/hide the path
     Status.show_path = False
@@ -125,6 +126,9 @@ def main():
         Status.finish=False
         PLAYER_CONTROLLER.reset()
         Status.timer_event= pygame.USEREVENT + 1
+        Status.start_ticks = pygame.time.get_ticks()
+        PLAYER_CONTROLLER.reset()
+        PLAYER_CONTROLLER.setCenter()
         update()
 
         
@@ -146,15 +150,14 @@ def main():
             c.deactivate()
     Status.ti=False
     # Main game loop
-    start_ticks = pygame.time.get_ticks()
+    Status.start_ticks = pygame.time.get_ticks()
     WHITE = (255, 255, 255)
     font = pygame.font.Font(None, 74)
-    
-    
+    start()
     while True:
         
         dt = clock.tick(30)  # Ensure max framerate is 30 FPS
-        if not Status.startFlag:
+        if  not Status.startFlag:
             start_menu()
             continue
         for event in pygame.event.get():
@@ -168,8 +171,8 @@ def main():
 
         # Handle player move
 
-        Status.player_position[0]=50+PLAYER_CONTROLLER.getMeanFilterX()*400# Toggle path visibility
-        Status.player_position[1]=50+PLAYER_CONTROLLER.getMeanFilterX()*200
+        Status.player_position[0]=((new_screen_width//2)-175)+PLAYER_CONTROLLER.getPosstionX()*350# Toggle path visibility
+        Status.player_position[1]=((screen_height // 2)-150)+PLAYER_CONTROLLER.getPosstionY()*300
         # Save player position
         Status.playr_path.append(tuple(Status.player_position))
         
@@ -184,7 +187,7 @@ def main():
                     # collision
                             pygame.time.set_timer(Status.timer_event, 7000) 
                             print("Collision")
-                            start_ticks = pygame.time.get_ticks()
+                            Status.start_ticks = pygame.time.get_ticks()
                             Status.currentActivate += 1
                             circle.deactivate()
                             if (Status.currentActivate >= len(activationSequence)):
@@ -211,9 +214,11 @@ def main():
                 pygame.draw.circle(screen, (0, 100, 0), pos, 3)
 
         # Draw the player as a circle
-        elapsed_seconds = (pygame.time.get_ticks() - start_ticks) / 1000
+        elapsed_seconds = (pygame.time.get_ticks() - Status.start_ticks) / 1000
 
     # Render the timer
+        if(Status.finish):
+            elapsed_seconds=0
         timer_text = font.render(f"s: {int(elapsed_seconds)}", True, WHITE)
         screen.blit(timer_text, (650, 200))
         pygame.draw.circle(screen, player_color, Status.player_position, player_radius)
